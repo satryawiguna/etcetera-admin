@@ -43,7 +43,7 @@ const AdminHeader = () => {
                     <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <a href="#" className="dropdown-item">
                             <div className="media">
-                                <img src="dist/img/user1-128x128.jpg" alt="User Avatar"
+                                <img src="/static/dist/img/user1-128x128.jpg" alt="User Avatar"
                                      className="img-size-50 mr-3 img-circle"/>
                                 <div className="media-body">
                                     <h3 className="dropdown-item-title">
@@ -60,7 +60,7 @@ const AdminHeader = () => {
                         <div className="dropdown-divider"></div>
                         <a href="#" className="dropdown-item">
                             <div className="media">
-                                <img src="dist/img/user8-128x128.jpg" alt="User Avatar"
+                                <img src="/static/dist/img/user8-128x128.jpg" alt="User Avatar"
                                      className="img-size-50 img-circle mr-3"/>
                                 <div className="media-body">
                                     <h3 className="dropdown-item-title">
@@ -76,7 +76,7 @@ const AdminHeader = () => {
                         <div className="dropdown-divider"></div>
                         <a href="#" className="dropdown-item">
                             <div className="media">
-                                <img src="dist/img/user3-128x128.jpg" alt="User Avatar"
+                                <img src="/static/dist/img/user3-128x128.jpg" alt="User Avatar"
                                      className="img-size-50 img-circle mr-3"/>
                                 <div className="media-body">
                                     <h3 className="dropdown-item-title">
