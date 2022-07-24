@@ -50,12 +50,13 @@ export const readProduct = createAsyncThunk("product/readProduct", async ({ id, 
 export const createProduct = createAsyncThunk("product/createProduct", async (data) => {
     const { access_token } = useSelector((state) => state.auth);
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/login`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/product`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${access_token}`
-        }
+        },
+        body: data
     }).then(res => {
         if (!res.ok) {
             throw Error(res);
