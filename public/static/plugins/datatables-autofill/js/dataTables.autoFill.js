@@ -319,7 +319,7 @@ $.extend( AutoFill.prototype, {
 		} );
 
 		if ( available.length === 1 && this.c.alwaysAsk === false ) {
-			// Only one action available - enact it immediately
+			// Only one actions available - enact it immediately
 			var result = actions[ available[0] ].execute( dt, cells );
 			this._update( result, cells );
 		}

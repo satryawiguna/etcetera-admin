@@ -596,7 +596,7 @@ can set the default in the options.
                 (Math.abs(delta.x) < SNAPPING_CONSTANT && Math.abs(delta.y) >= SNAPPING_CONSTANT);
         }
 
-        // adjust delta so the pan action is constrained on the vertical or horizontal direction
+        // adjust delta so the pan actions is constrained on the vertical or horizontal direction
         // it the movements in the other direction are small
         var adjustDeltaToSnap = function(delta) {
             if (Math.abs(delta.x) < SNAPPING_CONSTANT && Math.abs(delta.y) >= SNAPPING_CONSTANT) {

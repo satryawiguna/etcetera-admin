@@ -664,13 +664,13 @@
 			return false;
 		}
 
-		// If the mouse event is permitted, return true for the action to go through.
+		// If the mouse event is permitted, return true for the actions to go through.
 		return true;
 	};
 
 
 	/**
-	 * On actual clicks, determine whether this is a touch-generated click, a click action occurring
+	 * On actual clicks, determine whether this is a touch-generated click, a click actions occurring
 	 * naturally after a delay after a touch (which needs to be cancelled to avoid duplication), or
 	 * an actual click which should be permitted.
 	 *
@@ -699,7 +699,7 @@
 			this.targetElement = null;
 		}
 
-		// If clicks are permitted, return true for the action to go through.
+		// If clicks are permitted, return true for the actions to go through.
 		return permitted;
 	};
 
@@ -788,7 +788,7 @@
 			}
 		}
 
-		// IE10 with -ms-touch-action: none or manipulation, which disables double-tap-to-zoom (issue #97)
+		// IE10 with -ms-touch-actions: none or manipulation, which disables double-tap-to-zoom (issue #97)
 		if (layer.style.msTouchAction === 'none' || layer.style.touchAction === 'manipulation') {
 			return true;
 		}
@@ -805,7 +805,7 @@
 			}
 		}
 
-		// IE11: prefixed -ms-touch-action is no longer supported and it's recomended to use non-prefixed version
+		// IE11: prefixed -ms-touch-actions is no longer supported and it's recomended to use non-prefixed version
 		// http://msdn.microsoft.com/en-us/library/windows/apps/Hh767313.aspx
 		if (layer.style.touchAction === 'none' || layer.style.touchAction === 'manipulation') {
 			return true;

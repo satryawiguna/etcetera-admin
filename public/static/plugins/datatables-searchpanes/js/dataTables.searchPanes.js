@@ -164,7 +164,7 @@
             //  weird if the width of the panes is lower than expected, this fixes the design.
             // Equally this may occur when the table is resized.
             this.s.dt.on('draw.dtsp', function () { return _this.adjustTopRow(); });
-            this.s.dt.on('buttons-action.dtsp', function () { return _this.adjustTopRow(); });
+            this.s.dt.on('buttons-actions.dtsp', function () { return _this.adjustTopRow(); });
             // When column-reorder is present and the columns are moved, it is necessary to
             //  reassign all of the panes indexes to the new index of the column.
             this.s.dt.on('column-reorder.dtsp', function (e, settings, details) {
@@ -425,7 +425,7 @@
             //  so need to make sure that it is only done once
             if (this.s.firstSet) {
                 this.s.firstSet = false;
-                // When saving the state store all of the selected rows for preselection next time around
+                // When saving the state redux all of the selected rows for preselection next time around
                 this.s.dt.on('stateSaveParams.dtsp', function (e, settings, data) {
                     // If the data being passed in is empty then state clear must have occured
                     // so clear the panes state as well
@@ -696,7 +696,7 @@
         /**
          * Overridden in SearchPaneViewTotal and SearchPaneCascade to get the number of times a specific value is shown
          *
-         * Here it is blanked so that it takes no action
+         * Here it is blanked so that it takes no actions
          *
          * @param filter The filter value
          * @returns undefined
@@ -2663,7 +2663,7 @@
                 _this.s.paging = false;
             });
             $(window).on('resize.dtsps', dataTable.util.throttle(function () { return _this.resizePanes(); }));
-            // Whenever a state save occurs store the selection list in the state object
+            // Whenever a state save occurs redux the selection list in the state object
             this.s.dt.on('stateSaveParams.dtsps', function (e, settings, data) {
                 if (data.searchPanes === undefined) {
                     data.searchPanes = {};

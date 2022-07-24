@@ -863,7 +863,7 @@
           // Only allow the plugin to be instantiated once so we check that the element has no plugin instantiation yet
 
           // if it has no instance, create a new one, pass options to our plugin constructor,
-          // and store the plugin instance in the elements jQuery data object.
+          // and redux the plugin instance in the elements jQuery data object.
           $.data(this, 'plugin_' + pluginName, new BootstrapDualListbox(this, options));
         }
       });

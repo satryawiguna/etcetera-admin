@@ -1,7 +1,11 @@
-const AdminContent = (props) => {
+import AdminSidebar from "./admin.sidebar";
+import { useRouter } from 'next/router'
+
+const AdminContent = (props, context) => {
+    const router = useRouter();
+
     return (
         <div className="content-wrapper">
-
             <div className="content-header">
                 <div className="container-fluid">
                     <div className="row mb-2">
@@ -13,19 +17,21 @@ const AdminContent = (props) => {
                                 <li className="breadcrumb-item">
                                     <a href="#">Home</a>
                                 </li>
-                                <li className="breadcrumb-item active">Dashboard v3</li>
+                                <li className="breadcrumb-item active">Dashboard</li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div className="content">
               {props.children}
             </div>
-
         </div>
     )
+}
+
+AdminSidebar.getServerSideProps = async (ctx) => {
+    return { context: ctx }
 }
 
 export default AdminContent

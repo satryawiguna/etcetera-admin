@@ -219,8 +219,8 @@
                 },
 
                 /**
-                 * Prevents the default action of the given event.
-                 * @param event The event of which the default action shall be prevented.
+                 * Prevents the default actions of the given event.
+                 * @param event The event of which the default actions shall be prevented.
                  */
                 prvD: function (event) {
                     if (event.preventDefault && event.cancelable)
@@ -4353,8 +4353,8 @@
                 }
 
                 /**	
-                 * Runs a action for each selector inside the updateOnLoad option.	
-                 * @param {Function} action The action for each updateOnLoad selector, the arguments the function takes is the index and the value (the selector).	
+                 * Runs a actions for each selector inside the updateOnLoad option.
+                 * @param {Function} action The actions for each updateOnLoad selector, the arguments the function takes is the index and the value (the selector).
                  */
                 function eachUpdateOnLoad(action) {
                     var updateOnLoad = _currentPreparedOptions.updateOnLoad;
