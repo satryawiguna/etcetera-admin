@@ -656,7 +656,7 @@ define(["./raphael.core"], function(R) {
          [ property (number) ]
          **
          * Unique id of the element. Especially useful when you want to listen to events of the element,
-         * because all events are fired in format `<module>.<action>.<id>`. Also useful for @Paper.getById method.
+         * because all events are fired in format `<module>.<actions>.<id>`. Also useful for @Paper.getById method.
         \*/
         this.id = guid();
         node.raphaelid = this.id;

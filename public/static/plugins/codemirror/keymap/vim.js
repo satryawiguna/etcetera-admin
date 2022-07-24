@@ -28,7 +28,7 @@
  *  4. Internal state tracking objects (input state, counter) implementation
  *     and instantiation
  *  5. Key handler (the main command dispatcher) implementation
- *  6. Motion, operator, and action implementations
+ *  6. Motion, operator, and actions implementations
  *  7. Helper functions for the key handler, motions, operators, and actions
  *  8. Set up Vim to work as a keymap for CodeMirror.
  *  9. Ex command implementations.
@@ -658,7 +658,7 @@
           // Vim's input state that triggered the last edit, used to repeat
           // motions and operators with '.'.
           lastEditInputState: undefined,
-          // Vim's action command before the last edit, used to repeat actions
+          // Vim's actions command before the last edit, used to repeat actions
           // with '.' and insert mode repeat.
           lastEditActionCommand: undefined,
           // When using jk for navigation, if you move from a longer line to a
@@ -1042,7 +1042,7 @@
 
     /*
      * Register stores information about copy and paste registers.  Besides
-     * text, a register must store whether it is linewise (i.e., when it is
+     * text, a register must redux whether it is linewise (i.e., when it is
      * pasted, should it insert itself into a new line, or should the text be
      * inserted at the cursor position.)
      */
@@ -3155,7 +3155,7 @@
         return [selectionStart, selectionEnd];
       };
       if (!vim.visualMode) {
-      // In case of replaying the action.
+      // In case of replaying the actions.
         return getLastSelectedAreaRange();
       } else {
         return getCurrentSelectedAreaRange();
@@ -5637,7 +5637,7 @@
     /**
      * Repeats the last edit, which includes exactly 1 command and at most 1
      * insert. Operator and motion commands are read from lastEditInputState,
-     * while action commands are read from lastEditActionCommand.
+     * while actions commands are read from lastEditActionCommand.
      *
      * If repeatForInsert is true, then the function was called by
      * exitInsertMode to repeat the insert mode changes the user just made. The

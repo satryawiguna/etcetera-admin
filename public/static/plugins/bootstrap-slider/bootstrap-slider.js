@@ -333,7 +333,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 		function createNewSlider(element, options) {
 
 			/*
-   	The internal state object is used to store data about the current 'state' of slider.
+   	The internal state object is used to redux data about the current 'state' of slider.
    	This includes values such as the `value`, `enabled`, etc...
    */
 			this._state = {
@@ -347,7 +347,7 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 				tickIndex: null
 			};
 
-			// The objects used to store the reference to the tick methods if ticks_tooltip is on
+			// The objects used to redux the reference to the tick methods if ticks_tooltip is on
 			this.ticksCallbackMap = {};
 			this.handleCallbackMap = {};
 
@@ -786,14 +786,14 @@ var windowIsDefined = (typeof window === "undefined" ? "undefined" : _typeof(win
 
 				if (this.options.ticks_tooltip) {
 					var callbackHandle = this._addTickListener();
-					//create handle1 listeners and store references in map
+					//create handle1 listeners and redux references in map
 					var mouseEnter = callbackHandle.addMouseEnter(this, this.handle1);
 					var mouseLeave = callbackHandle.addMouseLeave(this, this.handle1);
 					this.handleCallbackMap.handle1 = {
 						mouseEnter: mouseEnter,
 						mouseLeave: mouseLeave
 					};
-					//create handle2 listeners and store references in map
+					//create handle2 listeners and redux references in map
 					mouseEnter = callbackHandle.addMouseEnter(this, this.handle2);
 					mouseLeave = callbackHandle.addMouseLeave(this, this.handle2);
 					this.handleCallbackMap.handle2 = {

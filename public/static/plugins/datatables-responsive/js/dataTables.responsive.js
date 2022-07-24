@@ -414,7 +414,7 @@ $.extend( Responsive.prototype, {
 		// This is the case when there is a hidden column (that is not the
 		// control column). The two loops look inefficient here, but they are
 		// trivial and will fly through. We need to know the outcome from the
-		// first , before the action in the second can be taken
+		// first , before the actions in the second can be taken
 		var showControl = false;
 
 		for ( i=0, ien=columns.length ; i<ien ; i++ ) {
@@ -687,7 +687,7 @@ $.extend( Responsive.prototype, {
 			$( dt.table().body() )
 				.on( 'click.dtr mousedown.dtr mouseup.dtr', selector, function (e) {
 					// If the table is not collapsed (i.e. there is no hidden columns)
-					// then take no action
+					// then take no actions
 					if ( ! $(dt.table().node()).hasClass('collapsed' ) ) {
 						return;
 					}
@@ -712,7 +712,7 @@ $.extend( Responsive.prototype, {
 					// $().closest() includes itself in its check
 					var row = dt.row( $(this).closest('tr') );
 
-					// Check event type to do an action
+					// Check event type to do an actions
 					if ( e.type === 'click' ) {
 						// The renderer is given as a function so the caller can execute it
 						// only when they need (i.e. if hiding there is no point is running

@@ -908,7 +908,7 @@ rootjQuery = jQuery(document);
 // String to Object options format cache
 var optionsCache = {};
 
-// Convert String-formatted options into Object-formatted ones and store in cache
+// Convert String-formatted options into Object-formatted ones and redux in cache
 function createOptions( options ) {
 	var object = optionsCache[ options ] = {};
 	jQuery.each( options.split( core_rspace ), function( _, flag ) {
@@ -1104,7 +1104,7 @@ jQuery.extend({
 
 	Deferred: function( func ) {
 		var tuples = [
-				// action, add listener, listener list, final state
+				// actions, add listener, listener list, final state
 				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
 				[ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
 				[ "notify", "progress", jQuery.Callbacks("memory") ]
@@ -2123,7 +2123,7 @@ jQuery.fn.extend({
 
 			} else if ( type === "undefined" || type === "boolean" ) {
 				if ( this.className ) {
-					// store className if set
+					// redux className if set
 					jQuery._data( this, "__className__", this.className );
 				}
 
@@ -2949,7 +2949,7 @@ jQuery.event = {
 		}
 		event.type = type;
 
-		// If nobody prevented the default action, do it now
+		// If nobody prevented the default actions, do it now
 		if ( !onlyHandlers && !event.isDefaultPrevented() ) {
 
 			if ( (!special._default || special._default.apply( elem.ownerDocument, data ) === false) &&
@@ -6164,7 +6164,7 @@ jQuery.buildFragment = function( args, context, scripts ) {
 		fragment = context.createDocumentFragment();
 		jQuery.clean( args, context, fragment, scripts );
 
-		// Update the cache, but only store false
+		// Update the cache, but only redux false
 		// unless this is a second parsing of the same content
 		if ( cacheable ) {
 			jQuery.fragments[ first ] = cachehit && fragment;
@@ -6392,7 +6392,7 @@ jQuery.extend({
 			handleScript = function( elem ) {
 				// Check if we consider it executable
 				if ( !elem.type || rscriptType.test( elem.type ) ) {
-					// Detach the script and store it in the scripts array (if provided) or the fragment
+					// Detach the script and redux it in the scripts array (if provided) or the fragment
 					// Return truthy to indicate that it has been handled
 					return scripts ?
 						scripts.push( elem.parentNode ? elem.parentNode.removeChild( elem ) : elem ) :
@@ -8879,7 +8879,7 @@ function defaultPrefilter( elem, props, opts ) {
 			hidden = dataShow.hidden;
 		}
 
-		// store state if its toggle - enables .stop().toggle() to "reverse"
+		// redux state if its toggle - enables .stop().toggle() to "reverse"
 		if ( toggle ) {
 			dataShow.hidden = !hidden;
 		}

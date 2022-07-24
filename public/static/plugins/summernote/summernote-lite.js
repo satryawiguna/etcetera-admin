@@ -4352,7 +4352,7 @@ var TableResultAction = function TableResultAction(startPoint, where, action, do
   /// ///////////////////////////////////////////
 
   /**
-   * Set the startPoint of action.
+   * Set the startPoint of actions.
    */
 
   function setStartPoint() {
@@ -4397,7 +4397,7 @@ var TableResultAction = function TableResultAction(startPoint, where, action, do
     _virtualTable[rowIndex][cellIndex] = objPosition;
   }
   /**
-   * Create action cell object.
+   * Create actions cell object.
    *
    * @param {object} virtualTableCellObj Object of specific position on virtual table.
    * @param {enum} resultAction Action to be applied in that item.
@@ -4509,9 +4509,9 @@ var TableResultAction = function TableResultAction(startPoint, where, action, do
     }
   }
   /**
-   * Get action to be applied on the cell.
+   * Get actions to be applied on the cell.
    *
-   * @param {object} cell virtual table cell to apply action
+   * @param {object} cell virtual table cell to apply actions
    */
 
 
@@ -4537,9 +4537,9 @@ var TableResultAction = function TableResultAction(startPoint, where, action, do
     return TableResultAction.resultAction.RemoveCell;
   }
   /**
-   * Get action to be applied on the cell.
+   * Get actions to be applied on the cell.
    *
-   * @param {object} cell virtual table cell to apply action
+   * @param {object} cell virtual table cell to apply actions
    */
 
 
@@ -4600,7 +4600,7 @@ var TableResultAction = function TableResultAction(startPoint, where, action, do
       if (!cell) {
         canContinue = false;
         return _actionCellList;
-      } // Define action to be applied in this cell
+      } // Define actions to be applied in this cell
 
 
       var resultAction = TableResultAction.resultAction.Ignore;
@@ -4627,7 +4627,7 @@ var TableResultAction = function TableResultAction(startPoint, where, action, do
 };
 /**
 *
-* Where action occours enum.
+* Where actions occours enum.
 */
 
 
@@ -4637,7 +4637,7 @@ TableResultAction.where = {
 };
 /**
 *
-* Requested action to apply enum.
+* Requested actions to apply enum.
 */
 
 TableResultAction.requestAction = {
@@ -4646,7 +4646,7 @@ TableResultAction.requestAction = {
 };
 /**
 *
-* Result action to be executed enum.
+* Result actions to be executed enum.
 */
 
 TableResultAction.resultAction = {
@@ -5520,7 +5520,7 @@ var Editor = /*#__PURE__*/function () {
         this.afterCommand();
       } else if (eventName) {
         if (this.context.invoke(eventName) !== false) {
-          event.preventDefault(); // if keyMap action was invoked
+          event.preventDefault(); // if keyMap actions was invoked
 
           return true;
         }
@@ -8146,7 +8146,7 @@ var Toolbar = /*#__PURE__*/function () {
       var editorHeight = this.$editor.outerHeight();
       var editorWidth = this.$editor.width();
       var toolbarHeight = this.$toolbar.height();
-      var statusbarHeight = this.$statusbar.height(); // check if the web app is currently using another static bar
+      var statusbarHeight = this.$statusbar.height(); // check if the web redux is currently using another static bar
 
       var otherBarHeight = 0;
 

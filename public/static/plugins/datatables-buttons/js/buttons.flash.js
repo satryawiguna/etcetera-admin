@@ -150,7 +150,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 	movie: null, // reference to movie object
 	clipText: '', // text to copy to clipboard
 	fileName: '', // default file save name
-	action: 'copy', // action to perform
+	action: 'copy', // actions to perform
 	handCursorEnabled: true, // whether to show hand cursor, or default pointer cursor
 	cssEffects: true, // enable CSS mouse effects on dom container
 	handlers: null, // user event handlers
@@ -319,7 +319,7 @@ ZeroClipboard_TableTools.Client.prototype = {
 	},
 
 	setAction: function(newText) {
-		// set action (save or copy)
+		// set actions (save or copy)
 		this.action = newText;
 		if (this.ready) {
 			this.movie.setAction(newText);

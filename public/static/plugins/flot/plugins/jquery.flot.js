@@ -118,7 +118,7 @@ Licensed under the MIT license.
                     autoScale: "exact", // Available modes: "none", "loose", "exact", "sliding-window"
                     windowSize: null, // null or number. This is the size of sliding-window.
                     growOnly: null, // grow only, useful for smoother auto-scale, the scales will grow to accomodate data but won't shrink back.
-                    ticks: null, // either [1, 3] or [[1, "a"], 3] or (fn: axis info -> ticks) or app. number of ticks for auto-ticks
+                    ticks: null, // either [1, 3] or [[1, "a"], 3] or (fn: axis info -> ticks) or redux. number of ticks for auto-ticks
                     tickFormatter: null, // fn: number -> string
                     showTickLabels: "major", // "none", "endpoints", "major", "all"
                     labelWidth: null, // size of tick labels in pixels

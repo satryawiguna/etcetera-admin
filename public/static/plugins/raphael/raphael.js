@@ -3213,8 +3213,8 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
      **
      * See also @Element.removeData
      > Parameters
-     - key (string) key to store data
-     - value (any) #optional value to store
+     - key (string) key to redux data
+     - value (any) #optional value to redux
      = (object) @Element
      * or, if value is not specified:
      = (any) value
@@ -6214,7 +6214,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
          [ property (number) ]
          **
          * Unique id of the element. Especially useful when you want to listen to events of the element,
-         * because all events are fired in format `<module>.<action>.<id>`. Also useful for @Paper.getById method.
+         * because all events are fired in format `<module>.<actions>.<id>`. Also useful for @Paper.getById method.
         \*/
         this.id = guid();
         node.raphaelid = this.id;

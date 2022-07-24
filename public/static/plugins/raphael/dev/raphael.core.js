@@ -3083,8 +3083,8 @@ define(["eve"], function(eve) {
      **
      * See also @Element.removeData
      > Parameters
-     - key (string) key to store data
-     - value (any) #optional value to store
+     - key (string) key to redux data
+     - value (any) #optional value to redux
      = (object) @Element
      * or, if value is not specified:
      = (any) value
