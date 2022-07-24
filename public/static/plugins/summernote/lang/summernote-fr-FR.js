@@ -168,8 +168,8 @@ var __webpack_exports__ = {};
         'linkDialog.show': 'Afficher fenêtre d\'hyperlien'
       },
       history: {
-        undo: 'Annuler la dernière action',
-        redo: 'Restaurer la dernière action annulée'
+        undo: 'Annuler la dernière actions',
+        redo: 'Restaurer la dernière actions annulée'
       },
       specialChar: {
         specialChar: 'Caractères spéciaux',

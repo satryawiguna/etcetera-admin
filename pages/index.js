@@ -1,11 +1,11 @@
-import AdminHoc from "../components/layouts/admin.hoc";
+import AdminHook from "../components/layouts/admin.hook";
 
 const Home = () => {
     return (
         <div>
-            <AdminHoc contentTitle={"Dashboard"}>
-                <h1>Dashboard</h1>
-            </AdminHoc>
+            <AdminHook title={"Dashboard"}>
+
+            </AdminHook>
         </div>
     )
 }

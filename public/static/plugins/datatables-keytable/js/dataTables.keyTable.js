@@ -520,7 +520,7 @@ $.extend( KeyTable.prototype, {
 	 */
 	_editor: function ( key, orig, hardEdit )
 	{
-		// If nothing focused, we can't take any action
+		// If nothing focused, we can't take any actions
 		if (! this.s.lastFocus) {
 			return;	
 		}
@@ -831,7 +831,7 @@ $.extend( KeyTable.prototype, {
 			return;
 		}
 
-		// If not focused, then there is no key action to take
+		// If not focused, then there is no key actions to take
 		var lastFocus = this.s.lastFocus;
 		if ( ! lastFocus ) {
 			return;

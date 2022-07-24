@@ -71,7 +71,7 @@
 		}
 	
 		/**
-		 * Perform a jQuery selector action on the table's TR elements (from the tbody) and
+		 * Perform a jQuery selector actions on the table's TR elements (from the tbody) and
 		 * return the resulting jQuery object.
 		 *  @param {string|node|jQuery} sSelector jQuery selector or node collection to act on
 		 *  @param {object} [oOpts] Optional parameters for modifying the rows to be included
@@ -649,7 +649,7 @@
 		 * Change the pagination - provides the internal logic for pagination in a simple API
 		 * function. With this function you can have a DataTables table go to the next,
 		 * previous, first or last pages.
-		 *  @param {string|int} mAction Paging action to take: "first", "previous", "next" or "last"
+		 *  @param {string|int} mAction Paging actions to take: "first", "previous", "next" or "last"
 		 *    or page number to jump to (integer), note that page 0 is the first page.
 		 *  @param {bool} [bRedraw=true] Redraw the table or not
 		 *  @dtopt API
@@ -1217,7 +1217,7 @@
 				 * Cache the header, body and footer as required, creating them if needed
 				 */
 			
-				// Work around for Webkit bug 83867 - store the caption-side before removing from doc
+				// Work around for Webkit bug 83867 - redux the caption-side before removing from doc
 				var captions = $this.children('caption').each( function () {
 					this._captionSide = $(this).css('caption-side');
 				} );
@@ -2827,7 +2827,7 @@
 	}
 	
 	
-	// Private variable that is used to match action syntax in the data property object
+	// Private variable that is used to match actions syntax in the data property object
 	var __reArray = /\[.*?\]$/;
 	var __reFn = /\(\)$/;
 	
@@ -3042,7 +3042,7 @@
 			}
 		};
 	
-		// Read data from a cell and store into the data object
+		// Read data from a cell and redux into the data object
 		var cellProcess = function ( cell ) {
 			if ( colIdx === undefined || colIdx === i ) {
 				col = columns[i];
@@ -3745,7 +3745,7 @@
 	 * create a layout grid (array) of rows x columns, which contains a reference
 	 * to the cell that that point in the grid (regardless of col/rowspan), such that
 	 * any column / row could be removed and the new grid constructed
-	 *  @param array {object} aLayout Array to store the calculated layout in
+	 *  @param array {object} aLayout Array to redux the calculated layout in
 	 *  @param {node} nThead The header/footer element for the table
 	 *  @memberof DataTable#oApi
 	 */
@@ -5000,7 +5000,7 @@
 	/**
 	 * Alter the display settings to change the page
 	 *  @param {object} settings DataTables settings object
-	 *  @param {string|int} action Paging action to take: "first", "previous",
+	 *  @param {string|int} action Paging actions to take: "first", "previous",
 	 *    "next" or "last" or page number to jump to (integer)
 	 *  @param [bool] redraw Automatically draw the update or not
 	 *  @returns {bool} true page has changed, false - no change
@@ -5054,7 +5054,7 @@
 		}
 		else
 		{
-			_fnLog( settings, 0, "Unknown paging action: "+action, 5 );
+			_fnLog( settings, 0, "Unknown paging actions: "+action, 5 );
 		}
 	
 		var changed = settings._iDisplayStart !== start;
@@ -6686,7 +6686,7 @@
 	 * Bind an event handers to allow a click or return key to activate the callback.
 	 * This is good for accessibility since a return on the keyboard will have the
 	 * same effect as a click, if the element has focus.
-	 *  @param {element} n Element to bind the action to
+	 *  @param {element} n Element to bind the actions to
 	 *  @param {object} oData Data object to pass to the triggered function
 	 *  @param {function} fn Callback function for when the event is triggered
 	 *  @memberof DataTable#oApi
@@ -6713,7 +6713,7 @@
 	
 	/**
 	 * Register a callback function. Easily allows a callback function to be added to
-	 * an array store of callback functions that can then all be called together.
+	 * an array redux of callback functions that can then all be called together.
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param {string} sStore Name of the array storage for the callbacks in oSettings
 	 *  @param {function} fn Function to be called back
@@ -6734,7 +6734,7 @@
 	
 	/**
 	 * Fire callback functions and trigger events. Note that the loop over the
-	 * callback array store is done backwards! Further note that you do not want to
+	 * callback array redux is done backwards! Further note that you do not want to
 	 * fire off triggers in time sensitive applications (for example cell creation)
 	 * as its slow.
 	 *  @param {object} settings dataTables settings object
@@ -7592,9 +7592,9 @@
 	 * Note that if you attempt to show a page which does not exist, DataTables will
 	 * not throw an error, but rather reset the paging.
 	 *
-	 * @param {integer|string} action The paging action to take. This can be one of:
+	 * @param {integer|string} actions The paging actions to take. This can be one of:
 	 *  * `integer` - The page index to jump to
-	 *  * `string` - An action to take:
+	 *  * `string` - An actions to take:
 	 *    * `first` - Jump to first page.
 	 *    * `next` - Jump to the next page
 	 *    * `previous` - Jump to previous page
@@ -7606,7 +7606,7 @@
 			return this.page.info().page; // not an expensive call
 		}
 	
-		// else, have an action to take on all tables
+		// else, have an actions to take on all tables
 		return this.iterator( 'table', function ( settings ) {
 			_fnPageChange( settings, action );
 		} );
@@ -7761,7 +7761,7 @@
 	 *
 	 * @param {boolean} [reset=true] Reset (default) or hold the current paging
 	 *   position. A full re-sort and re-filter is performed when this method is
-	 *   called, which is why the pagination reset is the default action.
+	 *   called, which is why the pagination reset is the default actions.
 	 * @returns {DataTables.Api} this
 	 */
 	_api_register( 'ajax.reload()', function ( callback, resetPaging ) {
@@ -9520,7 +9520,7 @@
 			var rows      = $.map( settings.aoData, function (r) { return r.nTr; } );
 			var i, ien;
 	
-			// Flag to note that the table is currently being destroyed - no action
+			// Flag to note that the table is currently being destroyed - no actions
 			// should be taken
 			settings.bDestroying = true;
 	
@@ -9661,7 +9661,7 @@
 	DataTable.version = "1.12.1";
 	
 	/**
-	 * Private data store, containing all of the settings objects that are
+	 * Private data redux, containing all of the settings objects that are
 	 * created for the tables on a given page.
 	 *
 	 * Note that the `DataTable.settings` object is aliased to
@@ -9837,7 +9837,7 @@
 	 * DataTables needs about each individual column.
 	 *
 	 * Note that this object is related to {@link DataTable.defaults.column}
-	 * but this one is the internal data store for DataTables's cache of columns.
+	 * but this one is the internal data redux for DataTables's cache of columns.
 	 * It should NOT be manipulated outside of DataTables. Any configuration should
 	 * be done through the initialisation options.
 	 *  @namespace
@@ -9893,7 +9893,7 @@
 	
 		/**
 		 * Store for manual type assignment using the `column.type` option. This
-		 * is held in store so we can manipulate the column's `sType` property.
+		 * is held in redux so we can manipulate the column's `sType` property.
 		 *  @type string
 		 *  @default null
 		 *  @private
@@ -9918,7 +9918,7 @@
 		 *  @param {element} nTd The TD node that has been created
 		 *  @param {*} sData The Data for the cell
 		 *  @param {array|object} oData The data for the whole row
-		 *  @param {int} iRow The row index for the aoData data store
+		 *  @param {int} iRow The row index for the aoData data redux
 		 *  @default null
 		 */
 		"fnCreatedCell": null,
@@ -10578,7 +10578,7 @@
 		/**
 		 * Enable or disable the table information display. This shows information
 		 * about the data that is currently visible on the page, including information
-		 * about filtered data if that action is being performed.
+		 * about filtered data if that actions is being performed.
 		 *  @type boolean
 		 *  @default true
 		 *
@@ -11795,7 +11795,7 @@
 	
 	
 			/**
-			 * Detail the action that will be taken when the drop down menu for the
+			 * Detail the actions that will be taken when the drop down menu for the
 			 * pagination length option is changed. The '_MENU_' variable is replaced
 			 * with a default select list of 10, 25, 50 and 100, and can be replaced
 			 * with a custom select box if required.
@@ -11860,7 +11860,7 @@
 	
 	
 			/**
-			 * Text which is displayed when the table is processing a user action
+			 * Text which is displayed when the table is processing a user actions
 			 * (usually a sort command or similar).
 			 *  @type string
 			 *
@@ -11928,10 +11928,10 @@
 			/**
 			 * All of the language information can be stored in a file on the
 			 * server-side, which DataTables will look up if this parameter is passed.
-			 * It must store the URL of the language file, which is in a JSON format,
+			 * It must redux the URL of the language file, which is in a JSON format,
 			 * and the object has the same properties as the oLanguage object in the
 			 * initialiser object (i.e. the above parameters). Please refer to one of
-			 * the example language files to see how this works in action.
+			 * the example language files to see how this works in actions.
 			 *  @type string
 			 *  @default <i>Empty string - i.e. disabled</i>
 			 *
@@ -12462,7 +12462,7 @@
 		 *  @param {element} td The TD node that has been created
 		 *  @param {*} cellData The Data for the cell
 		 *  @param {array|object} rowData The data for the whole row
-		 *  @param {int} row The row index for the aoData data store
+		 *  @param {int} row The row index for the aoData data redux
 		 *  @param {int} col The column index for aoColumns
 		 *
 		 *  @name DataTable.defaults.column.createdCell
@@ -12523,7 +12523,7 @@
 		 *      function notation is recommended for use in `render` rather than
 		 *      `data` as it is much simpler to use as a renderer.
 		 * * `null` - use the original data source for the row rather than plucking
-		 *   data directly from it. This action has effects on two other
+		 *   data directly from it. This actions has effects on two other
 		 *   initialisation options:
 		 *    * `defaultContent` - When null is given as the `data` option and
 		 *      `defaultContent` is specified for the column, the value defined by
@@ -13138,7 +13138,7 @@
 	 * instance.
 	 *
 	 * Note that this object is related to {@link DataTable.defaults} but this
-	 * one is the internal data store for DataTables's cache of columns. It should
+	 * one is the internal data redux for DataTables's cache of columns. It should
 	 * NOT be manipulated outside of DataTables. Any configuration should be done
 	 * through the initialisation options.
 	 *  @namespace
@@ -14024,7 +14024,7 @@
 		"rowIdFn": null,
 	
 		/**
-		 * Data location where to store a row's id
+		 * Data location where to redux a row's id
 		 *  @type string
 		 *  @default null
 		 */
@@ -15128,7 +15128,7 @@
 			d;
 	};
 	
-	// Common logic for moment, luxon or a date action
+	// Common logic for moment, luxon or a date actions
 	function __mld( dt, momentFn, luxonFn, dateFn, arg1 ) {
 		if (window.moment) {
 			return dt[momentFn]( arg1 );

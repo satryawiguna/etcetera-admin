@@ -73,7 +73,7 @@
             x: 0, y: 0, w: 0, h: 0
         };
 
-        // Panning: tell if panning action is in progress
+        // Panning: tell if panning actions is in progress
         self.panning = false;
 
         // Animate view box
@@ -1600,7 +1600,7 @@
             var self = this;
             var plot = {};
 
-            // Get plot options and store it
+            // Get plot options and redux it
             plot.options = self.getElemOptions(
                 self.options.map.defaultPlot,
                 (self.options.plots[id] ? self.options.plots[id] : {}),
@@ -2312,7 +2312,7 @@
                 // Cancel any remaining animationFrame
                 // It means this new step will take precedence over the old one scheduled
                 // This is the case when the user is triggering the zoom fast (e.g. with a big mousewheel run)
-                // This actually does nothing when performing a single zoom action
+                // This actually does nothing when performing a single zoom actions
                 self.cancelAnimationFrame(self.zoomAnimID);
                 // Compute elapsed time
                 var elapsed = (new Date()).getTime() - self.zoomAnimStartTime;

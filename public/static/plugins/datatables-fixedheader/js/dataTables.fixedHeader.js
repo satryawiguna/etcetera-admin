@@ -410,7 +410,7 @@ $.extend( FixedHeader.prototype, {
 			// Clone widths
 			this._matchWidths( itemDom.placeholder, itemDom.floating );
 
-			// The above action will remove the table header, potentially causing the table to
+			// The above actions will remove the table header, potentially causing the table to
 			// collapse to a smaller size, before it is then re-inserted (append). The result
 			// can be that the document, if scrolling, can "jump".
 			$(document)

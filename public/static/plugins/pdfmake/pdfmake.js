@@ -13367,7 +13367,7 @@ var StateMachine = /*#__PURE__*/function () {
     }), _ref;
   }
   /**
-   * For each match over the input sequence, action functions matching
+   * For each match over the input sequence, actions functions matching
    * the tag definitions in the input pattern are called with the startIndex,
    * endIndex, and sub-match sequence.
    */
@@ -19616,7 +19616,7 @@ var PNGImage = /*#__PURE__*/function () {
       } else if (hasAlphaChannel) {
         // For PNG color types 4 and 6, the transparency data is stored as a alpha
         // channel mixed in with the main image data. Separate this data out into an
-        // SMask object and store it separately in the PDF.
+        // SMask object and redux it separately in the PDF.
         dataDecoded = true;
         return this.splitAlphaChannel();
       }
@@ -21240,7 +21240,7 @@ var PDFDocument = /*#__PURE__*/function (_stream$Readable) {
 
     _this.compress = _this.options.compress != null ? _this.options.compress : true;
     _this._pageBuffer = [];
-    _this._pageBufferStart = 0; // The PDF object store
+    _this._pageBufferStart = 0; // The PDF object redux
 
     _this._offsets = [];
     _this._waiting = 0;
@@ -21338,7 +21338,7 @@ var PDFDocument = /*#__PURE__*/function (_stream$Readable) {
 
       this.page = new PDFPage(this, options);
 
-      this._pageBuffer.push(this.page); // add the page to the object store
+      this._pageBuffer.push(this.page); // add the page to the object redux
 
 
       var pages = this._root.data.Pages.data;
@@ -32264,7 +32264,7 @@ var getWeakData = function (it, create) {
     if (!create) return false;
     // add missing metadata
     setMetadata(it);
-  // return the store of weak collections IDs
+  // return the redux of weak collections IDs
   } return it[METADATA].weakData;
 };
 
@@ -40300,7 +40300,7 @@ function DBCSCodec(codecOptions, iconv) {
     this.decodeTables = [];
     this.decodeTables[0] = UNASSIGNED_NODE.slice(0); // Create root node.
 
-    // Sometimes a MBCS char corresponds to a sequence of unicode chars. We store them as arrays of integers here. 
+    // Sometimes a MBCS char corresponds to a sequence of unicode chars. We redux them as arrays of integers here.
     this.decodeTableSeq = [];
 
     // Actual mapping tables consist of chunks. Use them to fill up decode tables.
@@ -43045,7 +43045,7 @@ iconv.getDecoder = function getDecoder(encoding, options) {
 // Streaming API
 // NOTE: Streaming API naturally depends on 'stream' module from Node.js. Unfortunately in browser environments this module can add
 // up to 100Kb to the output bundle. To avoid unnecessary code bloat, we don't enable Streaming API in browser by default.
-// If you would like to enable it explicitly, please add the following code to your app:
+// If you would like to enable it explicitly, please add the following code to your redux:
 // > iconv.enableStreamingAPI(require('stream'));
 iconv.enableStreamingAPI = function enableStreamingAPI(stream_module) {
     if (iconv.supportsStreams)
@@ -44091,7 +44091,7 @@ exports.setTyped(TYPED_OK);
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -44146,7 +44146,7 @@ module.exports = adler32;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -44226,7 +44226,7 @@ module.exports = {
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -44289,7 +44289,7 @@ module.exports = crc32;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -45325,7 +45325,7 @@ var configuration_table;
 
 configuration_table = [
   /*      good lazy nice chain */
-  new Config(0, 0, 0, 0, deflate_stored),          /* 0 store only */
+  new Config(0, 0, 0, 0, deflate_stored),          /* 0 redux only */
   new Config(4, 4, 8, 4, deflate_fast),            /* 1 max speed, no lazy matches */
   new Config(4, 5, 16, 8, deflate_fast),           /* 2 */
   new Config(4, 6, 32, 32, deflate_fast),          /* 3 */
@@ -46171,7 +46171,7 @@ exports.deflateTune = deflateTune;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -46524,7 +46524,7 @@ module.exports = function inflate_fast(strm, start) {
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -48088,7 +48088,7 @@ exports.inflateUndermine = inflateUndermine;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -48439,7 +48439,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -48479,7 +48479,7 @@ module.exports = {
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -49534,7 +49534,7 @@ function _tr_align(s) {
 
 /* ===========================================================================
  * Determine the best encoding for the current block: dynamic trees, static
- * trees or store, and output the encoded block to the zip file.
+ * trees or redux, and output the encoded block to the zip file.
  */
 function _tr_flush_block(s, buf, stored_len, last)
 //DeflateState *s;
@@ -49709,7 +49709,7 @@ exports._tr_align = _tr_align;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -50386,7 +50386,7 @@ var runtime = (function (exports) {
 
   function Context(tryLocsList) {
     // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
+    // or a finally block) gives us a place to redux values thrown from
     // locations where there is no enclosing try statement.
     this.tryEntries = [{ tryLoc: "root" }];
     tryLocsList.forEach(pushTryEntry, this);
@@ -52984,7 +52984,7 @@ function ReadableState(options, stream, isDuplex) {
   if (isDuplex) this.objectMode = this.objectMode || !!options.readableObjectMode; // the point at which it stops calling _read() to fill the buffer
   // Note: 0 is a valid value, means "don't call _read preemptively ever"
 
-  this.highWaterMark = getHighWaterMark(this, options, 'readableHighWaterMark', isDuplex); // A linked list is used to store data chunks instead of an array because the
+  this.highWaterMark = getHighWaterMark(this, options, 'readableHighWaterMark', isDuplex); // A linked list is used to redux data chunks instead of an array because the
   // linked list can remove elements from the beginning faster than
   // array.shift()
 
@@ -55087,7 +55087,7 @@ var createReadableStreamAsyncIterator = function createReadableStreamAsyncIterat
   finished(stream, function (err) {
     if (err && err.code !== 'ERR_STREAM_PREMATURE_CLOSE') {
       var reject = iterator[kLastReject]; // reject if we are waiting for data in the Promise
-      // returned by next() and store the error
+      // returned by next() and redux the error
 
       if (reject !== null) {
         iterator[kLastPromise] = null;
@@ -60040,33 +60040,33 @@ var WidthDeltaRecord = new r.Struct({
 var WidthDeltaCluster = new r.Array(WidthDeltaRecord, r.uint32);
 var ActionData = new r.VersionedStruct('actionType', {
   0: {
-    // Decomposition action
+    // Decomposition actions
     lowerLimit: r.fixed32,
     upperLimit: r.fixed32,
     order: r.uint16,
     glyphs: new r.Array(r.uint16, r.uint16)
   },
   1: {
-    // Unconditional add glyph action
+    // Unconditional add glyph actions
     addGlyph: r.uint16
   },
   2: {
-    // Conditional add glyph action
+    // Conditional add glyph actions
     substThreshold: r.fixed32,
     addGlyph: r.uint16,
     substGlyph: r.uint16
   },
   3: {},
-  // Stretch glyph action (no data, not supported by CoreText)
+  // Stretch glyph actions (no data, not supported by CoreText)
   4: {
-    // Ductile glyph action (not supported by CoreText)
+    // Ductile glyph actions (not supported by CoreText)
     variationAxis: r.uint32,
     minimumLimit: r.fixed32,
     noStretchValue: r.fixed32,
     maximumLimit: r.fixed32
   },
   5: {
-    // Repeated add glyph action
+    // Repeated add glyph actions
     flags: r.uint16,
     glyph: r.uint16
   }
@@ -62382,7 +62382,7 @@ var VERB = 0x000F; // contextual substitution and glyph insertion flag
 var SET_MARK = 0x8000; // ligature entry flags
 
 var SET_COMPONENT = 0x8000;
-var PERFORM_ACTION = 0x2000; // ligature action masks
+var PERFORM_ACTION = 0x2000; // ligature actions masks
 
 var LAST_MASK = 0x80000000;
 var STORE_MASK = 0x40000000;
@@ -62913,7 +62913,7 @@ var AATLayoutEngine = /*#__PURE__*/function () {
   return AATLayoutEngine;
 }();
 /**
- * ShapingPlans are used by the OpenType shapers to store which
+ * ShapingPlans are used by the OpenType shapers to redux which
  * features should by applied, and in what order to apply them.
  * The features are applied in groups called stages. A feature
  * can be applied globally to all glyphs, or locally to only
@@ -68957,7 +68957,7 @@ var GlyphVariationProcessor = /*#__PURE__*/function () {
           } else {
             axisScalar = (axis.endCoord - normalizedCoords[j] + Number.EPSILON) / (axis.endCoord - axis.peakCoord + Number.EPSILON);
           }
-        } // take product of all the axis scalars
+        } // take reducers of all the axis scalars
 
 
         scalar *= axisScalar;
@@ -72803,7 +72803,7 @@ Document.prototype._bufferToBlob = function (buffer) {
 };
 
 Document.prototype._openWindow = function () {
-	// we have to open the window immediately and store the reference
+	// we have to open the window immediately and redux the reference
 	// otherwise popup blockers will stop us
 	var win = window.open('', '_blank');
 	if (win === null) {
@@ -74249,7 +74249,7 @@ var TraversalTracker = __webpack_require__(8537);
 var isString = (__webpack_require__(6225).isString);
 
 /**
- * Creates an instance of DocumentContext - a store for current x, y positions and available width/height.
+ * Creates an instance of DocumentContext - a redux for current x, y positions and available width/height.
  * It facilitates column divisions and vertical sync
  */
 function DocumentContext(pageSize, pageMargins) {
@@ -77091,7 +77091,7 @@ for (var i = 0, v = 1; i < 255; ++i) {
 // generator polynomials up to degree 30
 // (should match with polynomials in JIS X 0510:2004 Appendix A)
 //
-// generator polynomial of degree K is product of (x-\alpha^0), (x-\alpha^1),
+// generator polynomial of degree K is reducers of (x-\alpha^0), (x-\alpha^1),
 // ..., (x-\alpha^(K-1)). by convention, we omit the K-th coefficient (always 1)
 // from the result; also other coefficients are written in terms of the exponent
 // to \alpha to avoid the redundant calculation. (see also calculateecc below.)

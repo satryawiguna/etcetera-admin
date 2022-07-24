@@ -133,11 +133,11 @@ $.extend( Buttons.prototype, {
 	 */
 
 	/**
-	 * Get the action of a button
+	 * Get the actions of a button
 	 * @param  {int|string} Button index
 	 * @return {function}
 	 *//**
-	 * Set the action of a button
+	 * Set the actions of a button
 	 * @param  {node} node Button element
 	 * @param  {function} action Function to set
 	 * @return {Buttons} Self for chaining
@@ -747,7 +747,7 @@ $.extend( Buttons.prototype, {
 			var action = function ( e, dt, button, config ) {
 				config.action.call( dt.button( button ), e, dt, button, config );
 	
-				$(dt.table().node()).triggerHandler( 'buttons-action.dt', [
+				$(dt.table().node()).triggerHandler( 'buttons-actions.dt', [
 					dt.button( button ), dt, button, config 
 				] );
 			};
@@ -877,7 +877,7 @@ $.extend( Buttons.prototype, {
 			var splitAction = function ( e, dt, button, config ) {
 				_dtButtons.split.action.call( dt.button($('div.dt-btn-split-wrapper')[0] ), e, dt, button, config );
 	
-				$(dt.table().node()).triggerHandler( 'buttons-action.dt', [
+				$(dt.table().node()).triggerHandler( 'buttons-actions.dt', [
 					dt.button( button ), dt, button, config 
 				] );
 				button.attr('aria-expanded', true)
@@ -982,7 +982,7 @@ $.extend( Buttons.prototype, {
 
 	/**
 	 * Handle a key press - determine if any button's key configured matches
-	 * what was typed and trigger the action if so.
+	 * what was typed and trigger the actions if so.
 	 * @param  {string} character The character pressed
 	 * @param  {object} e Key event that triggered this call
 	 * @private
@@ -1234,7 +1234,7 @@ $.extend( Buttons.prototype, {
 
 			$(window).off('resize.resize.dtb-collection');
 			$('body').off( '.dtb-collection' );
-			dt.off( 'buttons-action.b-internal' );
+			dt.off( 'buttons-actions.b-internal' );
 			dt.off( 'destroy' );
 		};
 
@@ -1430,7 +1430,7 @@ $.extend( Buttons.prototype, {
 
 		if ( options.autoClose ) {
 			setTimeout( function () {
-				dt.on( 'buttons-action.b-internal', function (e, btn, dt, node) {
+				dt.on( 'buttons-actions.b-internal', function (e, btn, dt, node) {
 					if ( node[0] === hostNode[0] ) {
 						return;
 					}
@@ -2040,8 +2040,8 @@ DataTable.Api.registerPlural( 'buttons().active()', 'button().active()', functio
 	} );
 } );
 
-// Get / set button action
-DataTable.Api.registerPlural( 'buttons().action()', 'button().action()', function ( action ) {
+// Get / set button actions
+DataTable.Api.registerPlural( 'buttons().actions()', 'button().actions()', function ( action ) {
 	if ( action === undefined ) {
 		return this.map( function ( set ) {
 			return set.inst.action( set.node );
@@ -2132,7 +2132,7 @@ DataTable.Api.registerPlural( 'buttons().text()', 'button().text()', function ( 
 	} );
 } );
 
-// Trigger a button's action
+// Trigger a button's actions
 DataTable.Api.registerPlural( 'buttons().trigger()', 'button().trigger()', function () {
 	return this.each( function ( set ) {
 		set.inst.node( set.node ).trigger( 'click' );

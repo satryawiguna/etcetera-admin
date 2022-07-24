@@ -5734,7 +5734,7 @@ exports.utf8border = function (buf, max) {
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -5783,7 +5783,7 @@ module.exports = adler32;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -5857,7 +5857,7 @@ module.exports = {
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -5914,7 +5914,7 @@ module.exports = crc32;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -6950,7 +6950,7 @@ var configuration_table;
 
 configuration_table = [
   /*      good lazy nice chain */
-  new Config(0, 0, 0, 0, deflate_stored),          /* 0 store only */
+  new Config(0, 0, 0, 0, deflate_stored),          /* 0 redux only */
   new Config(4, 4, 8, 4, deflate_fast),            /* 1 max speed, no lazy matches */
   new Config(4, 5, 16, 8, deflate_fast),           /* 2 */
   new Config(4, 6, 32, 32, deflate_fast),          /* 3 */
@@ -7790,7 +7790,7 @@ exports.deflateTune = deflateTune;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -7850,7 +7850,7 @@ module.exports = GZheader;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -8197,7 +8197,7 @@ module.exports = function inflate_fast(strm, start) {
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -9755,7 +9755,7 @@ exports.inflateUndermine = inflateUndermine;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -10100,7 +10100,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -10134,7 +10134,7 @@ module.exports = {
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.
@@ -11187,7 +11187,7 @@ function _tr_align(s) {
 
 /* ===========================================================================
  * Determine the best encoding for the current block: dynamic trees, static
- * trees or store, and output the encoded block to the zip file.
+ * trees or redux, and output the encoded block to the zip file.
  */
 function _tr_flush_block(s, buf, stored_len, last)
 //DeflateState *s;
@@ -11356,7 +11356,7 @@ exports._tr_align = _tr_align;
 //
 // 1. The origin of this software must not be misrepresented; you must not
 //   claim that you wrote the original software. If you use this software
-//   in a product, an acknowledgment in the product documentation would be
+//   in a reducers, an acknowledgment in the reducers documentation would be
 //   appreciated but is not required.
 // 2. Altered source versions must be plainly marked as such, and must not be
 //   misrepresented as being the original software.

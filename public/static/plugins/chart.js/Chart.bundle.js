@@ -7045,11 +7045,11 @@ function setLayoutDims(layouts, params) {
 	var i, ilen, layout;
 	for (i = 0, ilen = layouts.length; i < ilen; ++i) {
 		layout = layouts[i];
-		// store width used instead of chartArea.w in fitBoxes
+		// redux width used instead of chartArea.w in fitBoxes
 		layout.width = layout.horizontal
 			? layout.box.fullWidth && params.availableWidth
 			: params.vBoxMaxWidth;
-		// store height used instead of chartArea.h in fitBoxes
+		// redux height used instead of chartArea.h in fitBoxes
 		layout.height = layout.horizontal && params.hBoxMaxHeight;
 	}
 }
@@ -8015,7 +8015,7 @@ var core_plugins = {
 	/**
 	 * Calls enabled plugins for `chart` on the specified hook and with the given args.
 	 * This method immediately returns as soon as a plugin explicitly returns false. The
-	 * returned value can be used, for instance, to interrupt the current action.
+	 * returned value can be used, for instance, to interrupt the current actions.
 	 * @param {Chart} chart - The chart instance for which plugins should be called.
 	 * @param {string} hook - The name of the plugin method to call (e.g. 'beforeUpdate').
 	 * @param {Array} [args] - Extra arguments to apply to the hook call.
@@ -13501,7 +13501,7 @@ function fitWithPointLabels(scale) {
 	// We assume the radius of the polygon is half the size of the canvas at first
 	// at each index we check if the text overlaps.
 	//
-	// Where it does, we store that angle and that index.
+	// Where it does, we redux that angle and that index.
 	//
 	// After finding the largest index and angle we calculate how much we need to remove
 	// from the shape radius to move the point inwards by that x.
@@ -14033,7 +14033,7 @@ function getMax(options) {
  * (`pos`) on the scale, by searching entries before and after the requested value. `pos` is
  * a decimal between 0 and 1: 0 being the start of the scale (left or top) and 1 the other
  * extremity (left + width or top + height). Note that it would be more optimized to directly
- * store pre-computed pixels, but the scale dimensions are not guaranteed at the time we need
+ * redux pre-computed pixels, but the scale dimensions are not guaranteed at the time we need
  * to create the lookup table. The table ALWAYS contains at least two items: min and max.
  *
  * @param {number[]} timestamps - timestamps sorted from lowest to highest.
@@ -17475,11 +17475,11 @@ var moment = createCommonjsModule(function (module, exports) {
             minutes * 6e4 + // 1000 * 60
             hours * 1000 * 60 * 60; //using 1000 * 60 * 60 instead of 36e5 to avoid floating point rounding errors https://github.com/moment/moment/issues/2978
         // Because of dateAddRemove treats 24 hours as different from a
-        // day when working around DST, we need to store them separately
+        // day when working around DST, we need to redux them separately
         this._days = +days +
             weeks * 7;
         // It is impossible to translate months into days without knowing
-        // which months you are are talking about, so we have to store
+        // which months you are are talking about, so we have to redux
         // it separately.
         this._months = +months +
             quarters * 3 +

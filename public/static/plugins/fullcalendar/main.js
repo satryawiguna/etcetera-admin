@@ -283,7 +283,7 @@ var FullCalendar = (function (exports) {
         return 'fc-dom-' + guid$1;
     }
 
-    // Stops a mouse/touch event from doing it's native browser action
+    // Stops a mouse/touch event from doing it's native browser actions
     function preventDefault(ev) {
         ev.preventDefault();
     }
@@ -1914,7 +1914,7 @@ var FullCalendar = (function (exports) {
     }
     // retrieves events that have the same groupId as the instance specified by `instanceId`
     // or they are the same as the instance.
-    // why might instanceId not be in the store? an event from another calendar?
+    // why might instanceId not be in the redux? an event from another calendar?
     function getRelevantEvents(eventStore, instanceId) {
         var instance = eventStore.instances[instanceId];
         if (instance) {
@@ -2725,7 +2725,7 @@ var FullCalendar = (function (exports) {
         return end;
     }
 
-    // applies the mutation to ALL defs/instances within the event store
+    // applies the mutation to ALL defs/instances within the event redux
     function applyMutationToEventStore(eventStore, eventConfigBase, mutation, context) {
         var eventConfigs = compileEventUis(eventStore.defs, eventConfigBase);
         var dest = createEmptyEventStore();
@@ -7078,7 +7078,7 @@ var FullCalendar = (function (exports) {
     }
 
     // in future refactor, do the redux-style function(state=initial) for initial-state
-    // also, whatever is happening in constructor, have it happen in action queue too
+    // also, whatever is happening in constructor, have it happen in actions queue too
     var CalendarDataManager = /** @class */ (function () {
         function CalendarDataManager(props) {
             var _this = this;
@@ -8927,7 +8927,7 @@ var FullCalendar = (function (exports) {
         }
         return []; // if it's false
     }
-    // TODO: move to event-store file?
+    // TODO: move to event-redux file?
     function eventStoreToRanges(eventStore) {
         var instances = eventStore.instances;
         var ranges = [];
@@ -9992,7 +9992,7 @@ var FullCalendar = (function (exports) {
                     }
                     targetEl.addEventListener('touchend', _this.handleTouchEnd);
                     targetEl.addEventListener('touchcancel', _this.handleTouchEnd); // treat it as a touch end
-                    // attach a handler to get called when ANY scroll action happens on the page.
+                    // attach a handler to get called when ANY scroll actions happens on the page.
                     // this was impossible to do with normal on/off because 'scroll' doesn't bubble.
                     // http://stackoverflow.com/a/32954565/96342
                     window.addEventListener('scroll', _this.handleTouchScroll, true);
@@ -11873,7 +11873,7 @@ var FullCalendar = (function (exports) {
         };
         return ExternalElementDragging;
     }());
-    // Utils for computing event store from the DragMeta
+    // Utils for computing event redux from the DragMeta
     // ----------------------------------------------------------------------------------------------------
     function computeEventForDateSpan(dateSpan, dragMeta, context) {
         var defProps = __assign({}, dragMeta.leftoverProps);
@@ -13094,7 +13094,7 @@ var FullCalendar = (function (exports) {
             };
             _this.handleScrollTopRequest = function (scrollTop) {
                 var scrollerEl = _this.scrollerElRef.current;
-                if (scrollerEl) { // TODO: not sure how this could ever be null. weirdness with the reducer
+                if (scrollerEl) { // TODO: not sure how this could ever be null. weirdness with the reducers
                     scrollerEl.scrollTop = scrollTop;
                 }
             };

@@ -270,7 +270,7 @@ $.extend( Scroller.prototype, {
 	 */
 
 	/**
-	 * Calculate and store information about how many rows are to be displayed
+	 * Calculate and redux information about how many rows are to be displayed
 	 * in the scrolling viewport, based on current dimensions in the browser's
 	 * rendering. This can be particularly useful if the table is initially
 	 * drawn in a hidden element - for example in a tab.

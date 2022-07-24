@@ -5,12 +5,12 @@ export default class MyDocument extends Document {
     static async getInitialProps(ctx) {
         const initialProps = await Document.getInitialProps(ctx);
 
-        console.log(ctx.asPath);
         return {
             ...initialProps,
             page: ctx.asPath,
         };
     }
+
     render() {
         return (
             <Html>
@@ -24,12 +24,12 @@ export default class MyDocument extends Document {
                     <link rel="stylesheet" href="/static/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
                 ) : (null) }
             </Head>
-            <body className={this.props.page == '/login' ? "hold-transition login-page" : "hold-transition sidebar-mini"}>
+            <body className={this.props.page == '/login' || this.props.page == '/forgot-password' ? "hold-transition login-page" : "hold-transition sidebar-mini"}>
             <Main/>
             <NextScript/>
-            <Script strategy={"afterInteractive"} src="/static/plugins/jquery/jquery.min.js" />
-            <Script strategy={"afterInteractive"} src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"/>
-            <Script strategy={"afterInteractive"} src="/static/dist/js/adminlte.js"/>
+            <Script strategy="afterInteractive" src="/static/plugins/jquery/jquery.min.js"/>
+            <Script strategy="afterInteractive" src="/static/plugins/bootstrap/js/bootstrap.bundle.min.js"/>
+            <Script strategy="afterInteractive" src="/static/dist/js/adminlte.js"/>
             </body>
             </Html>
         )
