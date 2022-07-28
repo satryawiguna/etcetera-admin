@@ -1,21 +1,18 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import {HYDRATE} from "next-redux-wrapper";
 import {useSelector} from "react-redux";
+import fetcher from "../../utils/fetcher";
 
 export const initialState = {
+    productCategory: {},
     productCategories: [],
-    productCategory: {}
+    loading: null,
+    success: null,
+    message: ""
 };
 
-export const readProductCategories = createAsyncThunk("productCategories/readProductCategories", async () => {
-    const {access_token} = useSelector((state) => state.auth);
-
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category`, {
+export const readProductCategory = createAsyncThunk("productCategory/readProductCategory", async (id) => {
+    await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category/${id}`, {
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${access_token}`
-        }
     }).then(res => {
         if (!res.ok) {
             throw Error(res);
@@ -27,35 +24,32 @@ export const readProductCategories = createAsyncThunk("productCategories/readPro
     });
 });
 
-export const readProductCategory = createAsyncThunk("productCategory/readProductCategory", async ({id, req}) => {
-    const {access_token} = useSelector((state) => state.auth);
+export const readProductCategories = createAsyncThunk("productCategories/readProductCategories",
+    async (_, { rejectWithValue }) => {
+        try {
+            await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category`, {
+                method: 'GET'
+            }).then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category/${id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${access_token}`
+                throw res;
+            }).then(
+                data => {
+                    console.log(data);
+            }).catch(err => {
+                rejectWithValue([], err)
+            });
+        } catch (err) {
+            console.log(err.message);
+            return rejectWithValue([], err);
         }
-    }).then(res => {
-        if (!res.ok) {
-            throw Error(res);
-        }
-
-        return res.json();
-    }).catch(err => {
-        console.log(err.message);
     });
-});
 
 export const createProductCategory = createAsyncThunk("productCategory/createProductCategory", async (data) => {
-    const {access_token} = useSelector((state) => state.auth);
-
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category`, {
+    await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${access_token}`
-        },
         body: data
     }).then(res => {
         if (!res.ok) {
@@ -69,14 +63,8 @@ export const createProductCategory = createAsyncThunk("productCategory/createPro
 });
 
 export const updateProductCategory = createAsyncThunk("productCategory/updateProductCategory", async ({id, data}) => {
-    const {access_token} = useSelector((state) => state.auth);
-
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category/update/${id}`, {
+    await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category/update/${id}`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${access_token}`
-        },
         body: data
     }).then(res => {
         if (!res.ok) {
@@ -90,9 +78,7 @@ export const updateProductCategory = createAsyncThunk("productCategory/updatePro
 });
 
 export const deleteProductCategory = createAsyncThunk("productCategory/deleteProductCategory", async (id) => {
-    const {access_token} = useSelector((state) => state.auth);
-
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category/${id}`, {
+    await fetcher(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/category/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -114,22 +100,67 @@ const productCategorySlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
-        [HYDRATE]: (state, {payload}) => {
-            return {
-                ...state,
-                ...payload.productCategories,
-                ...payload.productCategory,
-            };
-        },
-        [readProductCategories.fulfilled]: (state, {payload}) => {
-            state.productCategories = payload.productCategories;
+        [readProductCategory.pending]: (state) => {
+            state.loading = true;
         },
         [readProductCategory.fulfilled]: (state, {payload}) => {
             state.productCategory = payload.productCategory;
+            state.loading = false;
+            state.success = true;
         },
+        [readProductCategory.rejected]: (state, {payload}) => {
+            state.loading = false;
+            state.message = payload;
+        },
+        [readProductCategories.pending]: (state) => {
+            state.loading = true;
+        },
+        [readProductCategories.fulfilled]: (state, {payload}) => {
+            state.productCategories = payload.productCategories;
+            state.loading = false;
+            state.success = true;
+        },
+        [readProductCategories.rejected]: (state, {payload}) => {
+            state.loading = false;
+            state.message = payload;
+        },
+        [createProductCategory.pending]: (state) => {
+            state.loading = true;
+        },
+        [createProductCategory.fulfilled]: (state, {payload}) => {
+            state.productCategory = payload.productCategory;
+            state.loading = false;
+            state.success = true;
+        },
+        [createProductCategory.rejected]: (state, {payload}) => {
+            state.loading = false;
+            state.message = payload;
+        },
+        [updateProductCategory.pending]: (state) => {
+            state.loading = true;
+        },
+        [updateProductCategory.fulfilled]: (state, {payload}) => {
+            state.productCategory = payload.productCategory;
+            state.loading = false;
+            state.success = true;
+        },
+        [updateProductCategory.rejected]: (state, {payload}) => {
+            state.loading = false;
+            state.message = payload;
+        },
+        [deleteProductCategory.pending]: (state) => {
+            state.loading = true;
+        },
+        [deleteProductCategory.fulfilled]: (state, {payload}) => {
+            state.productCategory = payload.productCategory;
+            state.loading = false;
+            state.success = true;
+        },
+        [deleteProductCategory.rejected]: (state, {payload}) => {
+            state.loading = false;
+            state.message = payload;
+        }
     }
 });
 
-const productCategoryReducer = productCategorySlice.reducer;
-
-export default productCategoryReducer;
+export default productCategorySlice.reducer;

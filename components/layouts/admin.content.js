@@ -1,5 +1,5 @@
 import AdminSidebar from "./admin.sidebar";
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
 
 const AdminContent = (props, context) => {
     const router = useRouter();
@@ -24,14 +24,14 @@ const AdminContent = (props, context) => {
                 </div>
             </div>
             <div className="content">
-              {props.children}
+                {props.children}
             </div>
         </div>
     )
 }
 
 AdminSidebar.getServerSideProps = async (ctx) => {
-    return { context: ctx }
+    return {context: ctx}
 }
 
 export default AdminContent

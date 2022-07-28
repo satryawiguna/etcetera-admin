@@ -38,12 +38,13 @@ const ForgotPassword = () => {
     return (
         <div>
             <div className="login-box">
-                <div className={`alert ${message.type == 'error' ? "alert-danger" : "alert-success"} alert-dismissible`} style={{
-                    display: message.visible ? "block" : "none"
-                }}>
+                <div className={`alert ${message.type == 'error' ? "alert-danger" : "alert-success"} alert-dismissible`}
+                     style={{
+                         display: message.visible ? "block" : "none"
+                     }}>
                     <button type="button" className="close" onClick={doCloseAlert}>&times;</button>
                     <h5><i className="icon fas fa-ban"></i> Alert!</h5>
-                    { message.content }
+                    {message.content}
                 </div>
                 <div className="card card-outline card-primary">
                     <div className="card-body">

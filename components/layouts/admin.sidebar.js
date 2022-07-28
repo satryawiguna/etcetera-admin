@@ -2,7 +2,7 @@ import Link from "next/link";
 import {useSelector} from "react-redux";
 
 const AdminSidebar = (props, context) => {
-    const { user } = useSelector((state) => state.auth);
+    const {user} = useSelector((state) => state.auth);
 
     return (
         <aside className="main-sidebar sidebar-dark-primary elevation-4">
@@ -19,8 +19,9 @@ const AdminSidebar = (props, context) => {
             <div className="sidebar">
                 <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div className="image">
-                        <img src={`https://via.placeholder.com/160/FFFFFF/000000/?text=${user.email.charAt(0).toUpperCase() + user.email.charAt(1).toUpperCase()}`} className="img-circle elevation-2" alt="User Image" />
-
+                        {/*<img*/}
+                        {/*    src={`https://via.placeholder.com/160/FFFFFF/000000/?text=${user.email.charAt(0).toUpperCase() + user.email.charAt(1).toUpperCase()}`}*/}
+                        {/*    className="img-circle elevation-2" alt="User Image"/>*/}
                     </div>
                     <div className="info">
                         <a href="#" className="d-block">
@@ -39,7 +40,7 @@ const AdminSidebar = (props, context) => {
                         <li className="nav-item">
                             <Link href="/">
                                 <a className="nav-link">
-                                    <i className="nav-icon fas fa-th" />
+                                    <i className="nav-icon fas fa-th"/>
                                     <p>
                                         Dashboard
                                     </p>
@@ -49,7 +50,7 @@ const AdminSidebar = (props, context) => {
                         <li className="nav-item">
                             <Link href="/product-category">
                                 <a className="nav-link">
-                                    <i className="nav-icon fas fa-list" />
+                                    <i className="nav-icon fas fa-list"/>
                                     <p>
                                         Product Category
                                     </p>
@@ -59,7 +60,7 @@ const AdminSidebar = (props, context) => {
                         <li className="nav-item">
                             <Link href="/product">
                                 <a className="nav-link">
-                                    <i className="nav-icon fas fa-list" />
+                                    <i className="nav-icon fas fa-list"/>
                                     <p>
                                         Product
                                     </p>
@@ -74,7 +75,7 @@ const AdminSidebar = (props, context) => {
 }
 
 AdminSidebar.getInitialProps = async (ctx) => {
-    return { context: ctx }
+    return {context: ctx}
 }
 
 export default AdminSidebar
