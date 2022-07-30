@@ -6,7 +6,7 @@ import {
     deleteProductCategory, readProductCategories,
     readProductCategory,
     updateProductCategory
-} from "./product-category";
+} from "./productCategorySlice";
 
 export const initialState = {
     product: {},
@@ -19,7 +19,7 @@ export const initialState = {
 export const readProduct = createAsyncThunk("product/readProduct", async ({id, req}) => {
     const {access_token} = useSelector((state) => state.auth);
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/product/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1/developer/product/${id}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ export const readProduct = createAsyncThunk("product/readProduct", async ({id, r
 export const createProduct = createAsyncThunk("product/createProduct", async (data) => {
     const {access_token} = useSelector((state) => state.auth);
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/product`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1/developer/product`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export const createProduct = createAsyncThunk("product/createProduct", async (da
 export const updateProduct = createAsyncThunk("product/updateProduct", async ({id, data}) => {
     const {access_token} = useSelector((state) => state.auth);
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/product/update-detail-product/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1/developer/product/update-detail-product/${id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export const updateProduct = createAsyncThunk("product/updateProduct", async ({i
 export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id) => {
     const {access_token} = useSelector((state) => state.auth);
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/product/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1/developer/product/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id
 export const readProducts = createAsyncThunk("products/readProducts", async () => {
     const {access_token} = useSelector((state) => state.auth);
 
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/developer/product`, {
+    await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1/developer/product`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
