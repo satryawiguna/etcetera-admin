@@ -19,9 +19,15 @@ const AdminSidebar = (props, context) => {
             <div className="sidebar">
                 <div className="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div className="image">
-                        <img
-                            src={`https://via.placeholder.com/160/FFFFFF/000000/?text=${user.email.charAt(0).toUpperCase() + user.email.charAt(1).toUpperCase()}`}
-                            className="img-circle elevation-2" alt="User Image"/>
+                        {user.email ? (
+                            <>
+                                <img
+                                    src={`https://via.placeholder.com/160/FFFFFF/000000/?text=${user.email.charAt(0).toUpperCase() + user.email.charAt(1).toUpperCase()}`}
+                                    className="img-circle elevation-2" alt="User Image"/>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                     <div className="info">
                         <a href="#" className="d-block">

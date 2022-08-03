@@ -4,9 +4,9 @@ import Api from "../../utils/api";
 
 const initialState = {
     data: {},
-    loading: null,
-    success: null,
-    error: null,
+    loading: false,
+    success: false,
+    error: false,
     message: null
 };
 
@@ -85,7 +85,14 @@ export const deleteProductCategory = createAsyncThunk("productCategory/deletePro
 const productCategorySlice = createSlice({
     name: 'productCategory',
     initialState,
-    reducers: {},
+    reducers: {
+        setSuccess(state, action) {
+            return {
+                ...state,
+                success: action.payload.success
+            }
+        }
+    },
     extraReducers: {
         [readProductCategory.pending]: (state) => {
             state.loading = true;
@@ -158,5 +165,7 @@ const productCategorySlice = createSlice({
         }
     }
 });
+
+export const {setSuccess} = productCategorySlice.actions;
 
 export default productCategorySlice.reducer;

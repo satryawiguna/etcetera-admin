@@ -42,7 +42,7 @@ const ProductCategory = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {datas.map(item => {
+                            {datas ? datas.map(item => {
                                 return (
                                     <>
                                         <tr>
@@ -62,18 +62,18 @@ const ProductCategory = () => {
                                         </tr>
                                     </>
                                 )
-                            })}
+                            }) : ("")}
                             </tbody>
                         </table>
                         <div className="card-footer clearfix">
                             <ul className="pagination pagination-sm m-0 float-right">
-                                {links.map(item => {
+                                {links ? links.map(item => {
                                     return (
                                         <>
                                             <li className="page-item"><a className="page-link" href="#">{he.decode(item.label)}</a></li>
                                         </>
                                     )
-                                })}
+                                }) : ("")}
                             </ul>
                         </div>
                     </div>
@@ -83,11 +83,5 @@ const ProductCategory = () => {
         </>
     )
 }
-
-// export const getServerSideProps = wrapper.getServerSideProps(
-//     (store) => async ({ req, res }) => {
-//         await store.dispatch(fetchProductCategories({ req, res }));
-//     }
-// );
 
 export default ProductCategory;

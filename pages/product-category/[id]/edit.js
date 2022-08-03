@@ -1,17 +1,19 @@
-import AdminHook from "../../components/layouts/admin.hook";
+import AdminHook from "../../../components/layouts/admin.hook";
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {createProductCategory} from "../../redux/features/productCategorySlice";
+import {readProductCategory, updateProductCategory} from "../../../redux/features/productCategorySlice";
 import Swal from 'sweetalert2'
+import {wrapper} from "../../../redux/store";
 
 const AddProductCategory = () => {
+    const productCategory = useSelector((state) => state.productCategory);
     const dispatch = useDispatch();
-
+console.log(productCategory);
     const [productCategoryFields, setProductCategoryFields] = useState({});
     const [progress, setProgress] = useState(false);
 
-    async function doSave(e) {
+    async function doUpdate(e) {
         setProgress(true);
 
         try {
@@ -23,7 +25,7 @@ const AddProductCategory = () => {
             formData.append('file', productCategoryFields.file);
             formData.append('description', productCategoryFields.description);
 
-            dispatch(updateProductCategory(formData))
+            dispatch(createProductCategory(formData))
                 .then((payload) => {
                     if (payload.type == "productCategory/createProductCategory/fulfilled")
                         Swal.fire({
@@ -62,7 +64,7 @@ const AddProductCategory = () => {
     return (
         <div>
             <AdminHook title={"Add Product Category"}>
-                <form onSubmit={doSave} method="post">
+                <form onSubmit={doUpdate} method="post">
                     <div className="card-body">
                         <div className="form-group">
                             <label htmlFor="exampleInputEmail1">Name</label>
@@ -120,5 +122,11 @@ const AddProductCategory = () => {
     )
 }
 
+export const getServerSideProps = wrapper.getServerSideProps(
+    (store) => async ({params}) => {
+        const id = params.id;
+
+        await store.dispatch(readProductCategory(id));
+    });
 
 export default AddProductCategory

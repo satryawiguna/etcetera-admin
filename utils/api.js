@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {parseCookies} from "nookies";
+import nookies, {parseCookies} from "nookies";
 
 
 const Api = (ctx) => {
@@ -48,10 +48,13 @@ const Api = (ctx) => {
                 {
                     "refresh_token": refreshToken
                 })
-                .then(res => {
-                    if (res.status === 201) {
-                        localStorage.setItem('auth_token', res.data);
-                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('auth_token');
+                .then(response => {
+                    if (response.status === 201) {
+                        nookies.set(null, '__etcat__', response.data.token.access_token);
+                        nookies.set(null, '__etcrt__', response.data.token.refresh_token);
+
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token.access_token;
+
                         return axios(originalRequest);
                     }
                 })
