@@ -1,171 +1,104 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk, createEntityAdapter} from "@reduxjs/toolkit";
 import Api from "../../utils/api";
 
-
-const initialState = {
-    data: {},
-    loading: false,
-    success: false,
-    error: false,
-    message: null
-};
-
-
-export const fetchProductCategories = createAsyncThunk("productCategories/fetchProductCategories",
-    async (_,{rejectWithValue}) => {
+export const fetchProductCategories = createAsyncThunk("productCategories/fetch",
+    async (config = null, thunkAPI) => {
         try {
-            const response = await Api.get(`developer/category`);
-
-            if (response.status !== 200)
-                throw Error();
+            const response = await Api.get(`developer/category`, config);
 
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return thunkAPI.rejectWithValue(error);
         }
     });
 
-export const readProductCategory = createAsyncThunk("productCategory/readProductCategory",
-    async (id, {rejectWithValue}) => {
+export const readProductCategory = createAsyncThunk("productCategory/read",
+    async (id, thunkAPI) => {
         try {
             const response = await Api.get(`category/${id}`);
 
-            if (response.status !== 200)
-                throw Error();
-
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return thunkAPI.rejectWithValue(error);
         }
     });
 
-export const createProductCategory = createAsyncThunk("productCategory/createProductCategory",
-    async (data, {rejectWithValue}) => {
+export const createProductCategory = createAsyncThunk("productCategory/create",
+    async (data, thunkAPI) => {
         try {
             const response = await Api.post(`developer/category`, data);
 
-            if (response.status !== 200)
-                throw Error();
-
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return thunkAPI.rejectWithValue(error);
         }
     });
 
-export const updateProductCategory = createAsyncThunk("productCategory/updateProductCategory",
-    async ({id, data}, {rejectWithValue}) => {
+export const updateProductCategory = createAsyncThunk("productCategory/update",
+    async ({id, data}, thunkAPI) => {
         try {
-            const response = await Api.put(`developer/category/update/${id}`, data);
-
-            if (response.status !== 200)
-                throw Error();
+            const response = await Api.patch(`developer/category/update/${id}`, data);
 
             return response.data;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return thunkAPI.rejectWithValue(error);
         }
     });
 
-export const deleteProductCategory = createAsyncThunk("productCategory/deleteProductCategory",
-    async (id, {rejectWithValue}) => {
+export const deleteProductCategory = createAsyncThunk("productCategory/delete",
+    async (id, thunkAPI) => {
         try {
-            const response = await Api.delete(`developer/category/${id}`);
+            await Api.delete(`developer/category/${id}`);
 
-            if (response.status !== 200)
-                throw Error();
-
-            return response.data;
+            return id;
         } catch (error) {
-            return rejectWithValue(error.response.data);
+            return thunkAPI.rejectWithValue(error);
         }
     });
 
+const productCategoryEntity = createEntityAdapter({
+    selectId: (productCategory) => productCategory.id
+})
 
 const productCategorySlice = createSlice({
     name: 'productCategory',
-    initialState,
-    reducers: {
-        setSuccess(state, action) {
-            return {
-                ...state,
-                success: action.payload.success
-            }
-        }
-    },
+    initialState: productCategoryEntity.getInitialState({
+        links: [],
+        errors: null
+    }),
     extraReducers: {
-        [readProductCategory.pending]: (state) => {
-            state.loading = true;
-        },
         [readProductCategory.fulfilled]: (state, action) => {
-            state.data = action.payload;
-            state.loading = false;
-            state.success = true;
-        },
-        [readProductCategory.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = true;
-            state.message = action.error.message;
+            productCategoryEntity.setOne(state, action.payload)
         },
 
-        [fetchProductCategories.pending]: (state) => {
-            state.loading = true;
-        },
         [fetchProductCategories.fulfilled]: (state, action) => {
-            state.data = action.payload;
-            state.loading = false;
-            state.success = true;
-        },
-        [fetchProductCategories.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = true;
-            state.message = action.error.message;
+            productCategoryEntity.setAll(state, action.payload.data);
+            state.links = action.payload.links;
         },
 
-        [createProductCategory.pending]: (state) => {
-            state.loading = true;
-        },
         [createProductCategory.fulfilled]: (state, action) => {
-            state.data = action.payload;
-            state.loading = false;
-            state.success = true;
+            productCategoryEntity.addOne(state, action.payload)
         },
         [createProductCategory.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = true;
-            state.message = action.error.message;
+            state.errors = action.payload;
         },
 
-        [updateProductCategory.pending]: (state) => {
-            state.loading = true;
-        },
         [updateProductCategory.fulfilled]: (state, action) => {
-            state.data = action.payload;
-            state.loading = false;
-            state.success = true;
+            productCategoryEntity.updateOne(state, {id: action.payload.id, updates: action.payload})
         },
         [updateProductCategory.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = true;
-            state.message = action.error.message;
+            state.errors = action.payload;
         },
 
-        [deleteProductCategory.pending]: (state) => {
-            state.loading = true;
-        },
         [deleteProductCategory.fulfilled]: (state, action) => {
-            state.data = action.payload;
-            state.loading = false;
-            state.success = true;
+            productCategoryEntity.removeOne(state, action.payload)
         },
         [deleteProductCategory.rejected]: (state, action) => {
-            state.loading = false;
-            state.error = true;
-            state.message = action.error.message;
-        }
+            state.errors = action.payload;
+        },
     }
 });
 
-export const {setSuccess} = productCategorySlice.actions;
+export const productCategorySelectors = productCategoryEntity.getSelectors((state) => state.productCategory);
 
 export default productCategorySlice.reducer;

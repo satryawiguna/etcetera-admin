@@ -1,9 +1,9 @@
 import AdminHook from "../../components/layouts/admin.hook";
-import Link from "next/link";
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {createProductCategory} from "../../redux/features/productCategorySlice";
+import {useDispatch} from "react-redux";
 import Swal from 'sweetalert2'
+import ProductCategoryForm from "../../components/ProductCategoryForm";
+import {createProductCategory} from "../../redux/features/productCategorySlice";
 
 const AddProductCategory = () => {
     const dispatch = useDispatch();
@@ -23,25 +23,33 @@ const AddProductCategory = () => {
             formData.append('file', productCategoryFields.file);
             formData.append('description', productCategoryFields.description);
 
-            dispatch(updateProductCategory(formData))
+            await dispatch(createProductCategory(formData))
                 .then((payload) => {
-                    if (payload.type == "productCategory/createProductCategory/fulfilled")
+                    if (payload.meta.requestStatus === "fulfilled") {
                         Swal.fire({
                             icon: 'success',
-                            title: `${payload.payload}`,
-                            showConfirmButton: false,
-                            timer: 1500
+                            title: 'Success',
+                            text: `${payload.payload}`
                         });
+                    } else if (payload.meta.requestStatus === "rejected") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `${payload.payload.message}`
+                        });
+                    }
+
                 });
 
             setProductCategoryFields({});
             e.target.reset();
         } catch (error) {
-            setAlert({
-                visible: true,
-                type: "error",
-                title: "Error",
-                message: error.message
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: `${error.message}`,
+                showConfirmButton: false,
+                timer: 1500
             });
         }
 
@@ -62,63 +70,15 @@ const AddProductCategory = () => {
     return (
         <div>
             <AdminHook title={"Add Product Category"}>
-                <form onSubmit={doSave} method="post">
-                    <div className="card-body">
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="name"
-                                placeholder="Enter name"
-                                onChange={setValue}
-                                disabled={progress}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputFile">Image</label>
-                            <div className="input-group">
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        className="custom-file-input"
-                                        name="file"
-                                        onChange={setValue}
-                                        disabled={progress}
-                                    />
-                                    <label className="custom-file-label" htmlFor="image">
-                                        Choose file
-                                    </label>
-                                </div>
-                                <div className="input-group-append">
-                                    <span className="input-group-text">Upload</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label>Description</label>
-                            <textarea className="form-control"
-                                      name="description"
-                                      rows="3"
-                                      placeholder="Description..."
-                                      onChange={setValue}
-                                      disabled={progress}></textarea>
-                        </div>
-                    </div>
-                    {/* /.card-body */}
-                    <div className="card-footer">
-                        <Link href={ `/product-category` }>
-                            <button type="button" className="btn btn-default mb-2 mr-2">Cancel</button>
-                        </Link>
-                        <button type="submit" className="btn btn-primary mb-2">
-                            Save
-                        </button>
-                    </div>
-                </form>
+                <ProductCategoryForm
+                    type="add"
+                    setValue={setValue}
+                    doSave={doSave}
+                    progress={progress}
+                    />
             </AdminHook>
         </div>
     )
 }
-
 
 export default AddProductCategory

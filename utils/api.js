@@ -40,8 +40,6 @@ const Api = (ctx) => {
         }
 
         if (error.response.status === 401 && !originalRequest._retry) {
-            const refreshToken = auth.refresh_token;
-
             originalRequest._retry = true;
 
             return axios.post('/auth/token',

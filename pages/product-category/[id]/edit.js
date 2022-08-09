@@ -1,17 +1,29 @@
 import AdminHook from "../../../components/layouts/admin.hook";
-import Link from "next/link";
-import {useEffect, useState} from "react";
+import ProductCategoryForm from "../../../components/ProductCategoryForm";
 import {useDispatch, useSelector} from "react-redux";
-import {readProductCategory, updateProductCategory} from "../../../redux/features/productCategorySlice";
-import Swal from 'sweetalert2'
-import {wrapper} from "../../../redux/store";
+import Swal from "sweetalert2";
+import {useState, useEffect} from "react";
+import {
+    productCategorySelectors,
+    updateProductCategory
+} from "../../../redux/features/productCategorySlice";
+import {useRouter} from "next/router";
 
-const AddProductCategory = () => {
-    const productCategory = useSelector((state) => state.productCategory);
+const EditProductCategory = (props) => {
     const dispatch = useDispatch();
-console.log(productCategory);
+    const productCategory = useSelector((state) => productCategorySelectors.selectById(state, parseInt(props.id)));
+    const Router = useRouter();
+
     const [productCategoryFields, setProductCategoryFields] = useState({});
     const [progress, setProgress] = useState(false);
+
+    useEffect(() => {
+        setProductCategoryFields({
+            name: productCategory.name,
+            file: productCategory.image,
+            description: productCategory.description
+        });
+    }, [productCategory])
 
     async function doUpdate(e) {
         setProgress(true);
@@ -25,25 +37,33 @@ console.log(productCategory);
             formData.append('file', productCategoryFields.file);
             formData.append('description', productCategoryFields.description);
 
-            dispatch(createProductCategory(formData))
+            dispatch(updateProductCategory({id: props.id, data: formData}))
                 .then((payload) => {
-                    if (payload.type == "productCategory/createProductCategory/fulfilled")
+                    if (payload.meta.requestStatus === "fulfilled") {
                         Swal.fire({
                             icon: 'success',
-                            title: `${payload.payload}`,
-                            showConfirmButton: false,
-                            timer: 1500
+                            title: 'Success',
+                            text: `${payload.payload}`,
+                        }).then((result) => {
+                            Router.push('/product-category');
                         });
+                    } else if (payload.meta.requestStatus === "rejected") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: `${payload.payload.message}`,
+                        }).then((result) => {
+                            Router.push('/product-category');
+                        });
+                    }
                 });
-
-            setProductCategoryFields({});
-            e.target.reset();
         } catch (error) {
-            setAlert({
-                visible: true,
-                type: "error",
-                title: "Error",
-                message: error.message
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: `${error.message}`,
+                showConfirmButton: false,
+                timer: 1500
             });
         }
 
@@ -63,70 +83,25 @@ console.log(productCategory);
 
     return (
         <div>
-            <AdminHook title={"Add Product Category"}>
-                <form onSubmit={doUpdate} method="post">
-                    <div className="card-body">
-                        <div className="form-group">
-                            <label htmlFor="exampleInputEmail1">Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="name"
-                                placeholder="Enter name"
-                                onChange={setValue}
-                                disabled={progress}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="exampleInputFile">Image</label>
-                            <div className="input-group">
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        className="custom-file-input"
-                                        name="file"
-                                        onChange={setValue}
-                                        disabled={progress}
-                                    />
-                                    <label className="custom-file-label" htmlFor="image">
-                                        Choose file
-                                    </label>
-                                </div>
-                                <div className="input-group-append">
-                                    <span className="input-group-text">Upload</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label>Description</label>
-                            <textarea className="form-control"
-                                      name="description"
-                                      rows="3"
-                                      placeholder="Description..."
-                                      onChange={setValue}
-                                      disabled={progress}></textarea>
-                        </div>
-                    </div>
-                    {/* /.card-body */}
-                    <div className="card-footer">
-                        <Link href={ `/product-category` }>
-                            <button type="button" className="btn btn-default mb-2 mr-2">Cancel</button>
-                        </Link>
-                        <button type="submit" className="btn btn-primary mb-2">
-                            Save
-                        </button>
-                    </div>
-                </form>
+            <AdminHook title={"Edit Product Category"}>
+                <ProductCategoryForm
+                    type="edit"
+                    doUpdate={doUpdate}
+                    setValue={setValue}
+                    progress={progress}
+                    productCategory={productCategory}
+                />
             </AdminHook>
         </div>
     )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-    (store) => async ({params}) => {
-        const id = params.id;
+export async function getServerSideProps(context) {
+    return {
+        props: {
+            id: context.query.id
+        }
+    }
+}
 
-        await store.dispatch(readProductCategory(id));
-    });
-
-export default AddProductCategory
+export default EditProductCategory
