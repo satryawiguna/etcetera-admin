@@ -22,7 +22,7 @@ const AdminSidebar = (props, context) => {
                         {user.email ? (
                             <>
                                 <img
-                                    src={`https://via.placeholder.com/160/FFFFFF/000000/?text=${user.email.charAt(0).toUpperCase() + user.email.charAt(1).toUpperCase()}`}
+                                    src={`https://dummyimage.com/100x100/c785c7/ffffff.png&text=${user.email.charAt(0).toUpperCase() + user.email.charAt(1).toUpperCase()}`}
                                     className="img-circle elevation-2" alt="User Image"/>
                             </>
                         ) : (

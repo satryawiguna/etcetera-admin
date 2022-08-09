@@ -2,39 +2,29 @@ import React, {useState} from 'react'
 import ProductCategoryList from "./ProductCategoryList";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import {useDispatch, useSelector} from "react-redux";
 import {productCategorySelectors} from "../redux/features/productCategorySlice";
+import {useSelector} from "react-redux";
 
 const ProductCategories = ({items}) => {
-  const dispatch = useDispatch();
-  const productCategory = useSelector((state) => productCategorySelectors.selectById(state, 3));
-
   const [show, setShow] = useState(false);
+  const [id, setId] = useState();
 
   function doCloseModal() {
     setShow(false);
   }
 
-  function doShowModal() {
+  function doShowModal(id) {
     setShow(true);
+    setId(id);
   }
 
   return (
     <>
-      <Modal show={show} onHide={doCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={doCloseModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={doCloseModal}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <PopupModal
+          doShowModal={doShowModal}
+          doCloseModal={doCloseModal}
+          show={show}
+          id={id}/>
       {
         items && items.length > 0 ? (
             items.map(item => (
@@ -46,6 +36,37 @@ const ProductCategories = ({items}) => {
         ) : ("")
       }
     </>
+  )
+}
+
+const PopupModal = ({doShowModal, doCloseModal, show, id}) => {
+  const productCategory = useSelector((state) => productCategorySelectors.selectById(state, id));
+
+  return (
+      <Modal show={show} onHide={doCloseModal}>
+        <Modal.Header>
+          <Modal.Title>Product Category</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="form-group row">
+            <label className="col-sm-3 col-form-label">Name</label>
+            <div className="col-sm-9">
+              <div className="mt-2">{(productCategory) ? productCategory.name : ""}</div>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label className="col-sm-3 col-form-label">Description</label>
+            <div className="col-sm-9">
+              <div className="mt-2">{(productCategory) ? productCategory.description : ""}</div>
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={doCloseModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
   )
 }
 

@@ -30,11 +30,11 @@ const ProductCategoryList = ({item, doShowModal}) => {
         <>
             <tr>
                 <td><img
-                    src={(item.image) ?? `https://via.placeholder.com/60/CCCCCC/000000/?text=No Image`}/>
+                    src={(item.image) ?? `https://dummyimage.com/100x100/c785c7/ffffff.png&text=No+Image`}/>
                 </td>
                 <td>{item.name}</td>
                 <td>
-                    <Button variant="primary" className={`mb-2 mr-2`} onClick={doShowModal}>
+                    <Button variant="primary" className={`mb-2 mr-2`} onClick={() => doShowModal(item.id)}>
                         Preview
                     </Button>
                     <Link href={`/product-category/${item.id}/edit`}>
