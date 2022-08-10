@@ -19,8 +19,13 @@ const ProductCategoryList = ({item, doShowModal}) => {
             if (result.isConfirmed) {
                 dispatch(deleteProductCategory(id))
                     .then((payload) => {
-                        if (payload.type === "productCategory/deleteProductCategory/fulfilled")
-                            console.log("kesini");
+                        if (payload.meta.requestStatus === "fulfilled") {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: `Product category id ${id} has been deleted`
+                            });
+                        }
                     });
             }
         });

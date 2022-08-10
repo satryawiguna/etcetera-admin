@@ -17,34 +17,30 @@ const ProductCategory = () => {
     }, [dispatch]);
 
     return (
-        <>
-            <div>
-                <AdminHook title={"Product Category"}>
-                    <div className="card-body">
-                        <Link href="/product-category/add">
-                            <button type="button" className="btn btn-primary mb-2">Add Category</button>
-                        </Link>
-                        <table id="example2" className="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th width="60">Image</th>
-                                <th>Name</th>
-                                <th width="275">Action(s)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <ProductCategories
-                                items={productCategories} />
-                            </tbody>
-                        </table>
-                        <div className="card-footer clearfix">
-                            <Page
-                                items={pages} />
-                        </div>
-                    </div>
-                </AdminHook>
+        <AdminHook title={"Product Category"}>
+            <div className="card-body">
+                <Link href="/product-category/add">
+                    <button type="button" className="btn btn-primary mb-2">Add Category</button>
+                </Link>
+                <table id="example2" className="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th width="60">Image</th>
+                        <th>Name</th>
+                        <th width="275">Action(s)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <ProductCategories
+                        items={productCategories} />
+                    </tbody>
+                </table>
+                <div className="card-footer clearfix">
+                    <Page
+                        items={pages} />
+                </div>
             </div>
-        </>
+        </AdminHook>
     )
 }
 

@@ -1,10 +1,12 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 export const initialState = {
-    is_auth: false,
     access_token: null,
     refresh_token: null,
-    user: {}
+    expires_in: null,
+    token_type: null,
+    user: {},
+    logged_at: null
 };
 
 const authSlice = createSlice({
@@ -14,19 +16,23 @@ const authSlice = createSlice({
         login(state, action) {
             return {
                 ...state,
-                is_auth: action.payload.is_auth,
                 access_token: action.payload.access_token,
                 refresh_token: action.payload.refresh_token,
-                user: action.payload.user
+                expires_in: action.payload.expires_in,
+                token_type: action.payload.token_type,
+                user: action.payload.user,
+                logged_at: action.payload.logged_at
             }
         },
         logout(state, action) {
             return {
                 ...state,
-                is_auth: action.payload.is_auth,
                 access_token: action.payload.access_token,
                 refresh_token: action.payload.refresh_token,
-                user: action.payload.user
+                expires_in: action.payload.expires_in,
+                token_type: action.payload.token_type,
+                user: action.payload.user,
+                logged_at: action.payload.logged_at
             }
         }
     }

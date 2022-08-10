@@ -20,11 +20,12 @@ const ProductCategories = ({items}) => {
 
   return (
     <>
-      <PopupModal
+      <ProductCategoryModal
           doShowModal={doShowModal}
           doCloseModal={doCloseModal}
           show={show}
           id={id}/>
+
       {
         items && items.length > 0 ? (
             items.map(item => (
@@ -33,13 +34,17 @@ const ProductCategories = ({items}) => {
                 item={item}
                 doShowModal={doShowModal} />
             ))
-        ) : ("")
+        ) : (
+            <tr>
+                <td colSpan="3">No data available</td>
+            </tr>
+        )
       }
     </>
   )
 }
 
-const PopupModal = ({doShowModal, doCloseModal, show, id}) => {
+const ProductCategoryModal = ({doShowModal, doCloseModal, show, id}) => {
   const productCategory = useSelector((state) => productCategorySelectors.selectById(state, id));
 
   return (

@@ -45,11 +45,16 @@ const Login = () => {
                     nookies.set(null, '__etcat__', response.data.token.access_token);
                     nookies.set(null, '__etcrt__', response.data.token.refresh_token);
 
+                    var date = new Date();
+                    var now = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
+
                     dispatch(login({
-                        is_auth: true,
                         access_token: response.data.token.access_token,
                         refresh_token: response.data.token.refresh_token,
-                        user: response.data.user
+                        expires_in: response.data.token.expires_in,
+                        token_type: response.data.token.token_type,
+                        user: response.data.user,
+                        logged_at: now
                     }));
 
                     setLoginFields({});
