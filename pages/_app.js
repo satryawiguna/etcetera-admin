@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import {persistor, wrapper} from '../redux/store';
+import {wrapper, persistor} from '../redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 
 
@@ -11,4 +11,4 @@ function MyApp({Component, pageProps}) {
     );
 }
 
-export default wrapper.withRedux(MyApp)
+export default wrapper.withRedux(MyApp);

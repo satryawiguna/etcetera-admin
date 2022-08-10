@@ -1,20 +1,22 @@
 import nookies from "nookies";
-import Router from "next/router";
 import {useDispatch} from "react-redux";
-import {setAuth} from "../../redux/features/auth";
+import {logout} from "../../redux/features/authSlice";
 
 const AdminHeader = () => {
     const dispatch = useDispatch();
 
     function doLogout() {
-        dispatch(setAuth({
-            isAuth: false,
+        nookies.destroy(null, '__etcat__');
+        nookies.destroy(null, '__etcrt__');
+
+        dispatch(logout({
             access_token: null,
             refresh_token: null,
-            user: {}
-        }))
-
-        nookies.destroy(null, '__etc__');
+            expires_in: null,
+            token_type: null,
+            user: {},
+            logged_at: null
+        }));
 
         window.location.href = '/login';
         // Router.replace('/login');
@@ -44,4 +46,4 @@ const AdminHeader = () => {
     )
 }
 
-export default AdminHeader
+export default AdminHeader;

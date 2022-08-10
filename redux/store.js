@@ -1,19 +1,22 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {createWrapper} from 'next-redux-wrapper';
-
+import logger from 'redux-logger';
+import {persistStore, persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import {persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 
-import authReducer from './features/auth';
-import productReducer from "./features/product";
-import productCategoryReducer from "./features/product-category";
+import authReducer from './features/authSlice';
+import productReducer from "./features/productSlice";
+import productCategoryReducer from "./features/productCategorySlice";
 
+// Persisted reducer configuration
 const persistConfig = {
-    key: process.env.NEXT_PUBLIC_FINGERPRINT,
+    key: process.env.NEXT_PUBLIC_FINGER_PRINT,
     storage,
-    whitelist: ['auth', 'product', 'productCategory']
+    whiteList: [],
+    blacklist: []
 };
 
+// Would have to combine the reducers
 const rootReducer = combineReducers({
     auth: authReducer,
     product: productReducer,
@@ -24,13 +27,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
-        }),
-    devtools: true
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false
+    }).concat(logger),
+    devTools: process.env.NODE_ENV !== 'production',
 });
 
 const persistor = persistStore(store);
