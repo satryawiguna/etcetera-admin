@@ -18,8 +18,8 @@ const Product = () => {
     return (
         <AdminHook title={"Product"}>
             <div className="card-body">
-                <Link href="/product-category/add">
-                    <button type="button" className="btn btn-primary mb-2">Add Category</button>
+                <Link href="/product/add">
+                    <button type="button" className="btn btn-primary mb-2">Add Product</button>
                 </Link>
                 <table id="example2" className="table table-bordered table-hover">
                     <thead>
@@ -42,6 +42,10 @@ const Product = () => {
             </div>
         </AdminHook>
     )
+}
+
+export async function getStaticProps(context) {
+    return { props: { isHome: true } };
 }
 
 export default Product

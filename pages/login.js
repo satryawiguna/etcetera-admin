@@ -1,14 +1,15 @@
 import {useState} from "react";
 import Link from "next/link";
-import Router from "next/router";
+import {useRouter} from "next/router";
 import {useDispatch} from 'react-redux';
 import {login} from '../redux/features/authSlice';
 import Head from "next/head";
 import Api from "../utils/api";
-import nookies from "nookies";
+import {setCookie} from 'cookies-next';
 
 const Login = () => {
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const [loginFields, setLoginFields] = useState({});
     const [progress, setProgress] = useState(false);
@@ -42,8 +43,8 @@ const Login = () => {
                         throw Error();
                     }
 
-                    nookies.set(null, '__etcat__', response.data.token.access_token);
-                    nookies.set(null, '__etcrt__', response.data.token.refresh_token);
+                    setCookie('__etcat__', response.data.token.access_token);
+                    setCookie('__etcrt__', response.data.token.refresh_token);
 
                     var date = new Date();
                     var now = new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes());
@@ -60,8 +61,7 @@ const Login = () => {
                     setLoginFields({});
                     e.target.reset();
 
-                    window.location.href = '/';
-                    // Router.replace('/');
+                    router.replace('/');
                 })
                 .catch(error => {
                     setAlert({
@@ -168,6 +168,10 @@ const Login = () => {
             </div>
         </>
     )
+}
+
+export async function getStaticProps(context) {
+    return {props: {isHome: false}};
 }
 
 export default Login;

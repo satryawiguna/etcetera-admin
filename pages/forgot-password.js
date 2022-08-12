@@ -84,4 +84,8 @@ const ForgotPassword = () => {
     )
 }
 
+export async function getStaticProps(context) {
+    return { props: { isHome: false } };
+}
+
 export default ForgotPassword

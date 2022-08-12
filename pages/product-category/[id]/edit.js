@@ -97,11 +97,7 @@ const EditProductCategory = (props) => {
 }
 
 export async function getServerSideProps(context) {
-    return {
-        props: {
-            id: context.query.id
-        }
-    }
+    return {props: {id: context.query.id, isHome: true}};
 }
 
 export default EditProductCategory

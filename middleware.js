@@ -11,7 +11,9 @@ export function middleware(request) {
     }
 
     if (request.nextUrl.pathname === '/' ||
-        request.nextUrl.pathname === '/product-category') {
+        request.nextUrl.pathname.startsWith('/product-category') ||
+        request.nextUrl.pathname.startsWith('/product')
+        ) {
         if (!__etcat__) {
             return NextResponse.redirect(new URL('/login', request.url));
         }
