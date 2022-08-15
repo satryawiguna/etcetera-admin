@@ -1,5 +1,5 @@
 import AdminHook from "../../components/layouts/admin.hook";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import Swal from 'sweetalert2'
 import {createProductCategory, productCategorySelectors} from "../../redux/features/productCategorySlice";
@@ -12,16 +12,25 @@ const AddProduct = () => {
     const productCategories = useSelector((state) => productCategorySelectors.selectAll(state));
     const products = useSelector((state) => productSelectors.selectAll(state));
 
-    const MAX_FILE_COUNT = 5;
-
     const [productFields, setProductFields] = useState({});
+    
+    const MAX_FILE_COUNT = 5;
+    const [fileCountLimit, setFileCountLimit] = useState(false);
+    const [productImageFiles, setProductImageFiles] = useState([]);
+
+    const [colorCode, setColorCode] = useState("");
+    const [colorCodeItems, setColorCodeItems] = useState([]);
+
+    const [colorName, setColorName] = useState("");
+    const [colorNameItems, setColorNameItems] = useState([]);
+
+    const [sizepItems, setSizepItems] = useState([""]);
+    const [sizelItems, setSizelItems] = useState([""]);
+    const [sizetItems, setSizetItems] = useState([""]);
+
+    const [priceItems, setPriceItems] = useState([""]);
+
     const [progress, setProgress] = useState(false);
-
-    const [uploadedFiles, setUploadedFiles] = useState([]);
-    const [fileLimit, setFileLimit] = useState(false);
-
-    const [colorCodes, setColorCodes] = useState([]);
-    const [addColor, setAddColor] = useState("");
 
     async function doSave(e) {
         setProgress(true);
@@ -31,11 +40,27 @@ const AddProduct = () => {
 
             let formData = new FormData();
 
-            formData.append('name', productFields.name);
-            formData.append('file', productFields.file);
+            formData.append('code', productFields.code);
+            formData.append('cover_image', productFields.cover_image);
+            formData.append('cover_square_image', productFields.cover_square_image);
+            formData.append('cover_square_image', productFields.cover_square_image);
+            formData.append('product_image', productFields.product_image);
+            formData.append('product_name', productFields.product_name);
+            formData.append('composition_care', productFields.composition_care);
             formData.append('description', productFields.description);
+            formData.append('status_available', productFields.status_available);
+            formData.append('category', productFields.category);
+            formData.append('sku', productFields.sku);
+            formData.append('color_code', productFields.color_code);
+            formData.append('color_name', productFields.color_name);
+            formData.append('sizep', productFields.sizep);
+            formData.append('sizel', productFields.sizel);
+            formData.append('sizet', productFields.sizet);
+            formData.append('price', productFields.price);
+            formData.append('volume_unit', productFields.volume_unit);
 
-            await dispatch(createProductCategory(formData))
+
+            await dispatch(createProduct(formData))
                 .then((payload) => {
                     if (payload.meta.requestStatus === "fulfilled") {
                         Swal.fire({
@@ -68,30 +93,42 @@ const AddProduct = () => {
         setProgress(false);
     }
 
-    function parseUploadFiles(uploaded) {
-        let parseUploaded = [];
+
+
+    function parseFiles(uploaded) {
+        let parsedFiles = [];
 
         uploaded.map(item => {
-            parseUploaded.push(item.file);
+            parsedFiles.push(item.file);
         });
 
-        return parseUploaded
+        return parsedFiles
     }
 
-    function doUploadFiles(files) {
-        const uploaded = [...uploadedFiles];
-        let limitExceeded = false;
+    function doAddFiles(name, files) {
+        let nameSplited = name.split("_");
+        
+        nameSplited.map((item, index) => {
+            if (index != 0)
+                nameSplited[index] = item.charAt(0).toUpperCase() + item.slice(1);
+        });
+
+        let newName = nameSplited.join("");
+        
+        const uploaded = [...eval(newName + "Files")];
+        
+        let countLimitExceeded = false;
 
         files.some((file) => {
             if (uploaded.findIndex((f) => f.name === file.name) === -1) {
-                const uploadFilesObject = {
+                const filesObject = {
                     url: URL.createObjectURL(file),
                     file: file
                 }
 
-                uploaded.push(uploadFilesObject);
+                uploaded.push(filesObject);
 
-                if (uploaded.length === MAX_FILE_COUNT) setFileLimit(true);
+                if (uploaded.length === MAX_FILE_COUNT) setFileCountLimit(true);
                 if (uploaded.length > MAX_FILE_COUNT) {
                     Swal.fire({
                         icon: 'error',
@@ -99,41 +136,155 @@ const AddProduct = () => {
                         text: `You can only add a maximum of ${MAX_FILE_COUNT} files`
                     });
 
-                    setFileLimit(false);
-                    limitExceeded = true;
+                    setFileCountLimit(false);
+                    countLimitExceeded = true;
                 }
             }
         })
 
-        if (!limitExceeded) setUploadedFiles(uploaded)
+        if (!countLimitExceeded) eval("set" + newName.charAt(0).toUpperCase() + newName.slice(1) + "Files")(uploaded)
 
-        return parseUploadFiles(uploaded);
+        return parseFiles(uploaded);
     }
 
-    function doPushColorCode(colorCode) {
-        const colorCoded = [...colorCodes];
+    function doRemoveFile(name, file) {
+        let nameSplited = name.split("_");
+        
+        nameSplited.map((item, index) => {
+            if (index != 0)
+                nameSplited[index] = item.charAt(0).toUpperCase() + item.slice(1);
+        });
 
-        if (colorCoded.indexOf(colorCode) == -1 && colorCode != "") {
-            colorCoded.push(colorCode);
+        let newName = nameSplited.join("");
+
+        const newUploaded = eval(newName + "Files").filter(item => item.url !== file.url);
+        eval("set" + newName.charAt(0).toUpperCase() + newName.slice(1) + "Files")(newUploaded)
+
+        productFields[name] = newUploaded;
+        setProductFields({
+            ...productFields
+        });
+    }
+
+
+
+    function doAddItem(name, value) {
+        let nameSplited = name.split("_");
+        
+        nameSplited.map((item, index) => {
+            if (index != 0)
+                nameSplited[index] = item.charAt(0).toUpperCase() + item.slice(1);
+        });
+
+        let newName = nameSplited.join("");
+
+        const added = [...eval(newName + "Items")];
+
+        if (added.indexOf(value) == -1 && value != "") {
+            added.push(value);
         }
 
-        setColorCodes(colorCoded);
+        eval("set" + newName.charAt(0).toUpperCase() + newName.slice(1) + "Items")(added);
 
-        return colorCoded;
+        return added;
     }
 
-    function setValue(e) {
+    function doSyncItem(name, value, index) {
+        let nameSplited = name.split("_");
+        
+        nameSplited.map((item, index) => {
+            if (index != 0)
+                nameSplited[index] = item.charAt(0).toUpperCase() + item.slice(1);
+        });
+
+        let newName = nameSplited.join("");
+
+        const synced = [...eval(newName + "Items")];
+
+        if (synced.indexOf(value) == -1 && value != "") {
+            synced[index] = value;
+        }
+
+        eval("set" + newName.charAt(0).toUpperCase() + newName.slice(1) + "Items")(synced);
+
+        return synced;
+    }
+
+    function doRemoveItems(name) {
+        let nameSplited = name.split("_");
+        
+        nameSplited.map((item, index) => {
+            if (index != 0)
+                nameSplited[index] = item.charAt(0).toUpperCase() + item.slice(1);
+        });
+
+        let newName = nameSplited.join("");
+
+        const newColorCodeItems = [];
+
+        eval("set" + newName.charAt(0).toUpperCase() + newName.slice(1) + "Items")(newColorCodeItems);
+
+        productFields[name] = newColorCodeItems;
+        setProductFields({
+            ...productFields
+        })
+    }
+
+    function addField(fields) {
+        fields.map(item => {
+            let nameSplited = item.split("_");
+        
+            nameSplited.map((item, index) => {
+                if (index != 0)
+                    nameSplited[index] = item.charAt(0).toUpperCase() + item.slice(1);
+            });
+
+            let newName = nameSplited.join("");
+            
+            eval("set" + newName.charAt(0).toUpperCase() + newName.slice(1) + "Items")([...eval(newName + "Items"), ""]);
+        })
+    }
+
+    function removeField(fields, id) {
+        fields.map(item => {
+            let nameSplited = item.split("_");
+        
+            nameSplited.map((item, index) => {
+                if (index != 0)
+                    nameSplited[index] = item.charAt(0).toUpperCase() + item.slice(1);
+            });
+
+            let newName = nameSplited.join("");
+            
+
+            const newItems = eval(newName + "Items").filter((item, index) => index !== id);
+
+            eval("set" + newName.charAt(0).toUpperCase() + newName.slice(1) + "Items")(newItems)
+
+            productFields[item] = newItems;
+            setProductFields({
+                ...productFields
+            });
+        })
+    }
+
+    function setValue(e, index = null) {
         const target = e.target;
         const name = target.name;
         let value;
 
         if (name == "product_image") {
-            const chosenFiles = Array.prototype.slice.call(target.files);
-            value = doUploadFiles(chosenFiles);
-        } else if (name == "color_code") {
-            const chosenColors = target.value;
-            value = doPushColorCode(chosenColors);
-        } else {
+            const files = Array.prototype.slice.call(target.files);
+            value = doAddFiles(name, files);
+        } else if (name == "color_code" || name == "color_name") {
+            const item = target.value;
+            value = doAddItem(name, item);
+        } else if (name == "status_available") {
+            value = target.checked
+        } else if (name == "sizep" || name == "sizel" || name == "sizet" || name == "price") {
+            const item = target.value;
+            value = doSyncItem(name, item, index);
+        }else {
             value = target.value;
         }
         
@@ -153,16 +304,33 @@ const AddProduct = () => {
                     setValue={setValue}
                     doSave={doSave}
                     progress={progress}
-                    fileLimit={fileLimit}
 
                     productFields={productFields}
                     setProductFields={setProductFields}
-                    uploadedFiles={uploadedFiles}
-                    setUploadedFiles={setUploadedFiles}
-                    colorCodes={colorCodes}
-                    setColorCodes={setColorCodes}
-                    addColor={addColor}
-                    setAddColor={setAddColor}
+
+                    fileCountLimit={fileCountLimit}
+                    productImageFiles={productImageFiles}
+                    setProductImageFiles={setProductImageFiles}
+                    doRemoveFile={doRemoveFile}
+
+                    colorCodeItems={colorCodeItems}
+                    colorCode={colorCode}
+                    setColorCode={setColorCode}
+
+                    colorNameItems={colorNameItems}
+                    colorName={colorName}
+                    setColorName={setColorName}
+
+                    doRemoveItems={doRemoveItems}
+
+                    sizepItems={sizepItems}
+                    sizelItems={sizelItems}
+                    sizetItems={sizetItems}
+
+                    priceItems={priceItems}
+
+                    addField={addField}
+                    removeField={removeField}
 
                     products={products}
                     productCategories={productCategories}

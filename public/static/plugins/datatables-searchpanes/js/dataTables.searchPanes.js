@@ -2659,7 +2659,7 @@
                     _this._updateFilterCount();
                     _this._updateSelection();
                 }
-                // Paging flag reset - we only need to dodge the draw once
+                // Page flag reset - we only need to dodge the draw once
                 _this.s.paging = false;
             });
             $(window).on('resize.dtsps', dataTable.util.throttle(function () { return _this.resizePanes(); }));

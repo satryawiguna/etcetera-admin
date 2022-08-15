@@ -12,7 +12,7 @@ import {useRouter} from "next/router";
 const EditProductCategory = (props) => {
     const dispatch = useDispatch();
     const productCategory = useSelector((state) => productCategorySelectors.selectById(state, parseInt(props.id)));
-    const Router = useRouter();
+    const router = useRouter();
 
     const [productCategoryFields, setProductCategoryFields] = useState({});
     const [progress, setProgress] = useState(false);
@@ -45,7 +45,7 @@ const EditProductCategory = (props) => {
                             title: 'Success',
                             text: `${payload.payload}`,
                         }).then((result) => {
-                            Router.push('/product-category');
+                            router.push('/product-category');
                         });
                     } else if (payload.meta.requestStatus === "rejected") {
                         Swal.fire({
@@ -53,7 +53,7 @@ const EditProductCategory = (props) => {
                             title: 'Error',
                             text: `${payload.payload.message}`,
                         }).then((result) => {
-                            Router.push('/product-category');
+                            router.push('/product-category');
                         });
                     }
                 });
