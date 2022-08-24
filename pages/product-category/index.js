@@ -20,7 +20,7 @@ const ProductCategory = () => {
         <AdminHook title={"Product Category"}>
             <div className="card-body">
                 <Link href="/product-category/add">
-                    <button type="button" className="btn btn-primary mb-2">Add Category</button>
+                    <button type="button" className="btn btn-primary mb-2">Add Product Category</button>
                 </Link>
                 <table id="example2" className="table table-bordered table-hover">
                     <thead>
@@ -42,6 +42,10 @@ const ProductCategory = () => {
             </div>
         </AdminHook>
     )
+}
+
+export async function getStaticProps(context) {
+    return { props: { isHome: true } };
 }
 
 export default ProductCategory;

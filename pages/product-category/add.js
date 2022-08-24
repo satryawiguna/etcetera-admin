@@ -81,4 +81,8 @@ const AddProductCategory = () => {
     )
 }
 
+export async function getStaticProps(context) {
+    return { props: { isHome: true } };
+}
+
 export default AddProductCategory

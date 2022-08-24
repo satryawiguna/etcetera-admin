@@ -1,11 +1,7 @@
 import axios from 'axios';
-import nookies, {parseCookies} from "nookies";
+import {setCookie, getCookie, hasCookie} from 'cookies-next';
 
-
-const Api = (ctx) => {
-    const cookies = parseCookies(ctx);
-    const accessToken = cookies.__etcat__;
-
+const Api = () => {
     const defaultOptions = {
         baseURL: `${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1`,
         headers: {
@@ -17,8 +13,8 @@ const Api = (ctx) => {
 
     instance.interceptors.request.use(
         config => {
-            if (accessToken) {
-                config.headers['Authorization'] = `Bearer ${accessToken}`;
+            if (hasCookie('__etcat__')) {
+                config.headers['Authorization'] = `Bearer ${getCookie('__etcat__')}`;
             }
 
             return config;
@@ -30,8 +26,6 @@ const Api = (ctx) => {
     // =========================================================
     // We need this to implement auto refresh token if necessary
     // =========================================================
-
-    // const refreshToken = cookies.__etcrt__;
     //
     // instance.interceptors.response.use((response) => {
     //     return response
@@ -47,14 +41,13 @@ const Api = (ctx) => {
     //     if (error.response.status === 401 && !originalRequest._retry) {
     //         originalRequest._retry = true;
     //
-    //         return axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1/refreshToken`,
-    //             {
-    //                 "refresh_token": refreshToken
+    //         return axios.post(`${process.env.NEXT_PUBLIC_BASE_API_URL}/api/v1/refreshToken`, {
+    //                 "refresh_token": (hasCookie('__etcrt__')) ? getCookie('__etcrt__') : ""
     //             })
     //             .then(response => {
     //                 if (response.status === 201) {
-    //                     nookies.set(null, '__etcat__', response.data.token.access_token);
-    //                     nookies.set(null, '__etcrt__', response.data.token.refresh_token);
+    //                     setCookie('__etcat__', response.data.token.access_token);
+    //                     setCookie('__etcrt__', response.data.token.refresh_token);
     //
     //                     axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token.access_token;
     //

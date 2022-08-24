@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Link from "next/link";
 
 const ProductCategoryForm = (props) => {
@@ -7,7 +7,7 @@ const ProductCategoryForm = (props) => {
       <form onSubmit={(props.type === "add") ? props.doSave : props.doUpdate }>
         <div className="card-body">
           <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Name</label>
+            <label htmlFor="name">Name</label>
             <input
                 type="text"
                 className="form-control"
@@ -19,7 +19,7 @@ const ProductCategoryForm = (props) => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="exampleInputFile">Image</label>
+            <label htmlFor="file">Image</label>
             <div className="input-group">
               <div className="custom-file">
                 <input

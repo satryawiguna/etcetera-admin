@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import useSwr from "swr";
 import {useRouter} from "next/router";
-import nookies from "nookies";
 import {logout} from "../../redux/features/authSlice";
 import {useDispatch, useSelector} from "react-redux";
 import Api from "../../utils/api";
 import Swal from "sweetalert2";
+import {deleteCookie} from 'cookies-next';
 
 const AdminAuth = () => {
     const router = useRouter();
@@ -13,19 +13,18 @@ const AdminAuth = () => {
     const auth = useSelector((state) => state.auth);
 
     const fetcher = url => Api.get(url).then(res => res.data);
+    const {data, error} = useSwr("checkToken", fetcher);
 
-    const {data, error} = useSwr("checkAuth", fetcher);
-
-    if (error) {
-        if (router.pathname !== '/login') {
+    useEffect(() => {
+        if (error && router.pathname !== '/login') {
             Swal.fire({
                 icon: 'error',
-                text: `Oppss... Seems sesion has expired.`,
+                text: `Oppsss... Seems session has expired.`,
                 showConfirmButton: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    nookies.destroy(null, '__etcat__');
-                    nookies.destroy(null, '__etcrt__');
+                    deleteCookie('__etcat__');
+                    deleteCookie('__etcrt__');
 
                     dispatch(logout({
                         access_token: null,
@@ -36,12 +35,11 @@ const AdminAuth = () => {
                         logged_at: null
                     }));
 
-                    window.location.href = '/login';
-                    // router.replace("/login");
+                    router.replace("/login");
                 }
             });
         }
-    }
+    }, [error])
 }
 
 export default AdminAuth

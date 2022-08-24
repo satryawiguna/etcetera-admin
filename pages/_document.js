@@ -12,6 +12,8 @@ export default class MyDocument extends Document {
     }
 
     render() {
+        const pageProps = this.props?.__NEXT_DATA__?.props?.pageProps;
+
         return (
             <Html>
                 <Head>
@@ -22,7 +24,7 @@ export default class MyDocument extends Document {
                     <link rel="stylesheet" href="/static/dist/css/adminlte.min.css"/>
                 </Head>
                 <body
-                    className={this.props.page == '/login' || this.props.page == '/forgot-password' ? "hold-transition login-page" : "hold-transition sidebar-mini"}>
+                    className={pageProps.isHome ? "hold-transition sidebar-mini" : "hold-transition login-page"}>
                 <Main/>
                 <NextScript/>
                 <Script strategy="afterInteractive" src="/static/plugins/jquery/jquery.min.js"/>
